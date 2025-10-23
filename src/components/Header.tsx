@@ -264,8 +264,8 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-gray-200 py-4">
-            <div className="space-y-2">
+          <div className="lg:hidden border-t border-gray-200 bg-white absolute top-full left-0 right-0 shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto">
+            <div className="py-4 px-4 space-y-2">
               {/* Home Button */}
               <Link
                 href="/"
@@ -289,7 +289,7 @@ export default function Header() {
                   </button>
 
                   {openDropdown === item.name && (
-                    <div className="ml-8 mt-2 space-y-1">
+                    <div className="ml-6 mt-2 space-y-1 pb-2">
                       {item.dropdown.map((subItem: any) => (
                         <Link
                           key={subItem.name}
@@ -298,7 +298,7 @@ export default function Header() {
                             setIsOpen(false);
                             closeDropdown();
                           }}
-                          className={subItem.isParent ? "block px-4 py-2 text-sm font-semibold text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 border-b border-gray-200" : "block px-4 py-2 text-sm text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200"}
+                          className={subItem.isParent ? "block px-4 py-2 text-sm font-semibold text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 mb-2 border-b border-gray-200 pb-3" : "block px-4 py-2 text-sm text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200"}
                         >
                           {subItem.name}
                         </Link>
@@ -308,12 +308,11 @@ export default function Header() {
                 </div>
               ))}
 
-                  {/* Mobile Action Buttons */}
-                  <div className="pt-4 border-t border-gray-200 space-y-2">
-                
+              {/* Mobile Action Buttons */}
+              <div className="pt-4 mt-4 border-t border-gray-200 space-y-2">
                 {session ? (
                   <>
-                    <div className="px-4 py-3 border-b border-gray-200">
+                    <div className="px-4 py-3 bg-gray-50 rounded-lg mb-3">
                       <p className="text-sm font-medium text-gray-900">{session.user.name || 'User'}</p>
                       <p className="text-xs text-gray-500">{session.user.email}</p>
                       {session.user.role === 'ADMIN' && (
@@ -337,7 +336,7 @@ export default function Header() {
                         signOut({ callbackUrl: '/' })
                         setIsOpen(false)
                       }}
-                      className="block w-full px-4 py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium flex items-center space-x-3"
+                      className="w-full text-left px-4 py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium flex items-center space-x-3"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>
@@ -348,14 +347,14 @@ export default function Header() {
                     <Link
                       href="/auth/signin"
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium"
+                      className="block px-4 py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 font-medium text-center"
                     >
                       Sign In
                     </Link>
                     <Link
                       href="/auth/signup"
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all duration-200 font-medium"
+                      className="block px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all duration-200 font-medium text-center"
                     >
                       Sign Up
                     </Link>
@@ -365,7 +364,7 @@ export default function Header() {
                 <Link
                   href="/contact"
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all duration-200 font-medium flex items-center space-x-3"
+                  className="block px-4 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Contact</span>
