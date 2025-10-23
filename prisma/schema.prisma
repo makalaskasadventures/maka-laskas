@@ -1,0 +1,425 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  phone         String?
+  avatar        String?
+  password      String?  // For email/password authentication
+  emailVerified DateTime?
+  role          UserRole @default(USER)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  bookings     Booking[]
+  testimonials Testimonial[]
+  inquiries    Inquiry[]
+  accounts     Account[]
+  sessions     Session[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// Destinations and Countries
+model Country {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String   @unique // ISO country code
+  description String?
+  image       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  destinations Destination[]
+  adventures   Adventure[]
+
+  @@map("countries")
+}
+
+model Destination {
+  id          String   @id @default(cuid())
+  name        String
+  region      String?
+  description String?
+  image       String?
+  isActive    Boolean  @default(true)
+  countryId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  country   Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  adventures Adventure[]
+
+  @@map("destinations")
+}
+
+// Adventure Categories and Types
+model AdventureCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  icon        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  adventures Adventure[]
+
+  @@map("adventure_categories")
+}
+
+model AdventureTheme {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  color       String?  // Hex color code
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  adventures Adventure[]
+
+  @@map("adventure_themes")
+}
+
+// Main Adventure Model
+model Adventure {
+  id                String   @id @default(cuid())
+  title             String
+  slug              String   @unique
+  description       String
+  shortDescription  String?
+  image             String?
+  gallery           String[] // Array of image URLs
+  duration          Int      // Duration in days
+  groupSize         Int      // Maximum group size
+  minAge            Int?     // Minimum age requirement
+  difficulty        Difficulty @default(MODERATE)
+  price             Decimal  @db.Decimal(10, 2)
+  originalPrice     Decimal? @db.Decimal(10, 2) // For sale prices
+  isActive          Boolean  @default(true)
+  isFeatured        Boolean  @default(false)
+  isOnSale          Boolean  @default(false)
+  rating            Float    @default(0)
+  reviewCount       Int      @default(0)
+  countryId         String
+  destinationId     String?
+  categoryId        String
+  themeId           String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  country     Country           @relation(fields: [countryId], references: [id])
+  destination Destination?      @relation(fields: [destinationId], references: [id])
+  category    AdventureCategory @relation(fields: [categoryId], references: [id])
+  theme       AdventureTheme?   @relation(fields: [themeId], references: [id])
+  bookings    Booking[]
+  testimonials Testimonial[]
+  highlights   AdventureHighlight[]
+  itinerary    ItineraryItem[]
+
+  @@map("adventures")
+}
+
+enum Difficulty {
+  EASY
+  MODERATE
+  CHALLENGING
+  EXTREME
+}
+
+model AdventureHighlight {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  icon        String?
+  adventureId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  adventure Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+
+  @@map("adventure_highlights")
+}
+
+model ItineraryItem {
+  id          String   @id @default(cuid())
+  day         Int
+  title       String
+  description String?
+  activities  String[] // Array of activities for the day
+  meals       String[] // Array of meals included
+  accommodation String?
+  adventureId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  adventure Adventure @relation(fields: [adventureId], references: [id], onDelete: Cascade)
+
+  @@map("itinerary_items")
+}
+
+// Booking System
+model Booking {
+  id          String      @id @default(cuid())
+  bookingNumber String    @unique
+  status      BookingStatus @default(PENDING)
+  totalAmount Decimal     @db.Decimal(10, 2)
+  depositAmount Decimal?  @db.Decimal(10, 2)
+  paidAmount  Decimal     @default(0) @db.Decimal(10, 2)
+  currency    String      @default("USD")
+  startDate   DateTime
+  endDate     DateTime
+  participants Int        @default(1)
+  specialRequests String?
+  notes       String?
+  userId      String
+  adventureId String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id])
+  adventure Adventure @relation(fields: [adventureId], references: [id])
+  payments  Payment[]
+
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  PAID
+  CANCELLED
+  COMPLETED
+}
+
+model Payment {
+  id          String      @id @default(cuid())
+  amount      Decimal     @db.Decimal(10, 2)
+  currency    String      @default("USD")
+  status      PaymentStatus @default(PENDING)
+  method      PaymentMethod
+  transactionId String?
+  bookingId   String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  BANK_TRANSFER
+  PAYPAL
+  STRIPE
+}
+
+// Testimonials and Reviews
+model Testimonial {
+  id          String   @id @default(cuid())
+  title       String?
+  content     String
+  rating      Int      // 1-5 stars
+  isVerified  Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  isPublished Boolean  @default(false)
+  userId      String
+  adventureId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user      User       @relation(fields: [userId], references: [id])
+  adventure Adventure? @relation(fields: [adventureId], references: [id])
+
+  @@map("testimonials")
+}
+
+// Contact and Inquiries
+model Inquiry {
+  id          String      @id @default(cuid())
+  type        InquiryType @default(GENERAL)
+  subject     String
+  message     String
+  status      InquiryStatus @default(NEW)
+  response    String?
+  userId      String?
+  email       String
+  name        String?
+  phone       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("inquiries")
+}
+
+enum InquiryType {
+  GENERAL
+  BOOKING
+  PARTNERSHIP
+  MEDIA
+  CAREER
+  TECHNICAL
+}
+
+enum InquiryStatus {
+  NEW
+  IN_PROGRESS
+  RESPONDED
+  CLOSED
+}
+
+// Blog and Media
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  image       String?
+  isPublished Boolean  @default(false)
+  publishedAt DateTime?
+  author      String?
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
+// Partnerships
+model Partnership {
+  id          String   @id @default(cuid())
+  name        String
+  type        PartnershipType
+  description String?
+  website     String?
+  logo        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("partnerships")
+}
+
+enum PartnershipType {
+  NGO
+  CONSERVATION
+  COMMUNITY
+  TRAVEL_AGENT
+  MEDIA
+  CORPORATE
+}
+
+// Impact Tracking
+model ImpactMetric {
+  id          String   @id @default(cuid())
+  year        Int
+  metric      String   // e.g., "community_hours", "local_spend_percentage"
+  value       Decimal  @db.Decimal(15, 2)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("impact_metrics")
+}
+
+// Media Builder
+model MediaSection {
+  id            String   @id @default(cuid())
+  // Unique key identifying the section, e.g. "newsletter", "stories", "awards", "keynotes", "kit"
+  key           String   @unique
+  title         String
+  // JSON structure describing ordered blocks for the builder
+  content       Json
+  // Pagination settings for sections that paginate
+  itemsPerPage  Int      @default(9)
+  isPaginated   Boolean  @default(true)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("media_sections")
+}
