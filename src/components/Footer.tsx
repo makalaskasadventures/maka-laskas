@@ -1,192 +1,90 @@
 'use client';
 
-import { Globe, Facebook, Instagram, Twitter, Youtube, Linkedin } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 
 const Footer = () => {
-  const footerLinks = {
-    company: [
-      { name: 'About Us', href: '/about' },
-      { name: 'Our Mission', href: '/mission' },
-      { name: 'Team', href: '/team' },
-      { name: 'Careers', href: '/careers' },
-    ],
-    adventures: [
-      { name: 'Signature Journeys', href: '/adventures/signature' },
-      { name: 'Ubuntu Trails', href: '/adventures/ubuntu-trails' },
-      { name: 'Purposeful Safaris', href: '/adventures/safaris' },
-      { name: 'Village Immersions', href: '/adventures/immersions' },
-    ],
-    destinations: [
-      { name: 'Uganda', href: '/destinations/uganda' },
-      { name: 'Tanzania', href: '/destinations/tanzania' },
-      { name: 'Rwanda', href: '/destinations/rwanda' },
-      { name: 'Kenya', href: '/destinations/kenya' },
-      { name: 'Burundi', href: '/destinations/burundi' },
-      { name: 'DRC', href: '/destinations/drc' },
-    ],
-    support: [
-      { name: 'Contact Us', href: '/contact' },
-      { name: 'FAQ', href: '/faq' },
-      { name: 'Travel Insurance', href: '/insurance' },
-      { name: 'Emergency Contact', href: '/emergency' },
-    ],
-  };
-
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  const leftContacts = [
+    { label: 'Location', value: 'Kampala, Uganda, luafu road' },
+    { label: 'Phone', value: '+256 765 190 820 +256 765 190 820' },
+    { label: 'Email', value: 'info@makalaskas.com' },
+    { label: 'Opening hours', value: '9:00 AM – 5:00 PM' }
   ];
 
+  const menu1 = ['Home', 'Pages', 'Animals', 'Schedule', 'Gallery', 'Contacts', 'Foundation'];
+  const menu2 = ['Documents', 'Association of Zoo', 'Aquarium', 'Terrarium', 'Terra Park', 'Cooperation', 'Library'];
+
+  const insta = ['/img/img2.jpg','/img/img5.jpg','/img/img6.jpg','/img/img4.jpg','/img/img7.jpg','/img/img3.jpg'];
+
+  const Social = (
+    <div className="mt-6 flex gap-4">
+      <Link href="#" className="rounded-full p-2 text-white hover:opacity-90" style={{background:'#1877f2'}} aria-label="Facebook"><Facebook className="h-4 w-4"/></Link>
+      <Link href="#" className="rounded-full p-2 text-white hover:opacity-90" style={{background:'#1da1f2'}} aria-label="Twitter"><Twitter className="h-4 w-4"/></Link>
+      <Link href="#" className="rounded-full p-2 text-white hover:opacity-90" style={{background:'#ff0000'}} aria-label="YouTube"><Youtube className="h-4 w-4"/></Link>
+      <Link href="#" className="rounded-full p-2 text-white hover:opacity-90" style={{background:'#e1306c'}} aria-label="Instagram"><Instagram className="h-4 w-4"/></Link>
+    </div>
+  );
+
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-[#121518] text-gray-200">
       <div className="container-custom">
-        {/* Main Footer Content */}
-        <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center">
-                  <Globe className="w-6 h-6 text-white" />
-                </div>
+        <div className="py-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Left: brand and contacts */}
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3">
+                <Image src="/maka-laskas-logo.png" alt="Maka-Laskas" width={48} height={48} className="h-12 w-12 object-contain"/>
                 <div>
-                  <h3 className="text-xl font-bold">Maka-Laskas</h3>
-                  <p className="text-sm text-gray-400">Adventures</p>
+                  <div className="text-xl font-bold text-white">Maka-Laskas</div>
+                  <div className="text-xs tracking-wide text-gray-400">AWESOME ZOO</div>
                 </div>
               </div>
-              
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                "I Am Because You Are, Together We Explore." We create transformative 
-                travel experiences across East Africa, connecting people with nature, 
-                culture, and community through our Ubuntu-inspired adventures.
-              </p>
-              
-              <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </a>
+              <div className="mt-6 space-y-2 text-sm">
+                {leftContacts.map((c) => (
+                  <div key={c.label}><span className="text-gray-400">{c.label}: </span>{c.value}</div>
                 ))}
+              </div>
+              {Social}
+            </div>
+
+            {/* Middle: menu & links */}
+            <div className="lg:col-span-4 grid grid-cols-2 gap-8">
+              <div>
+                <div className="mb-3 text-lg font-semibold text-white">Menu & Links</div>
+                <ul className="space-y-2 text-sm">
+                  {menu1.map((m)=> (
+                    <li key={m}><Link href="#" className="hover:text-white">{m}</Link></li>
+                  ))}
+                </ul>
+              </div>
+              <div className="pt-8 lg:pt-8">
+                <ul className="space-y-2 text-sm">
+                  {menu2.map((m)=> (
+                    <li key={m}><Link href="#" className="hover:text-white text-yellow-400">{m}</Link></li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            {/* Company Links */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Company</h4>
-              <ul className="space-y-2">
-                {footerLinks.company.map((link, index) => (
-                  <li key={index}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-300 hover:text-orange-400 transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
+            {/* Right: Instagram grid */}
+            <div className="lg:col-span-3">
+              <div className="mb-3 text-lg font-semibold text-white">Instagram</div>
+              <div className="grid grid-cols-3 gap-3">
+                {insta.map((src, i)=> (
+                  <div key={i} className="relative aspect-square overflow-hidden rounded">
+                    <Image src={src} alt="insta" fill className="object-cover" />
+                  </div>
                 ))}
-              </ul>
-            </div>
-
-            {/* Adventures Links */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Adventures</h4>
-              <ul className="space-y-2">
-                {footerLinks.adventures.map((link, index) => (
-                  <li key={index}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-300 hover:text-orange-400 transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Destinations Links */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Destinations</h4>
-              <ul className="space-y-2">
-                {footerLinks.destinations.map((link, index) => (
-                  <li key={index}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-300 hover:text-orange-400 transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="border-t border-gray-800 py-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-            <div>
-              <h4 className="text-xl font-semibold mb-2">
-                Get Travel Inspiration Straight to Your Inbox
-              </h4>
-              <p className="text-gray-400">
-                Subscribe to our newsletter for exclusive promotions and travel stories.
-              </p>
-            </div>
-            <div className="flex w-full lg:w-auto gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 lg:w-64 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-orange-500 text-white placeholder-gray-400"
-              />
-              <button className="btn-primary whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Footer */}
-        <div className="border-t border-gray-800 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-gray-400 text-sm">
-              <p>&copy; 2024 Maka-Laskas Adventures Company Ltd. All rights reserved.</p>
-              <p className="mt-1">
-                Registered in Uganda | VAT Number: [To be added]
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap items-center gap-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-orange-400 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-orange-400 transition-colors">
-                Terms & Conditions
-              </Link>
-              <Link href="/sitemap" className="text-gray-400 hover:text-orange-400 transition-colors">
-                Sitemap
-              </Link>
-              <div className="flex items-center space-x-2">
-                <span className="text-gray-400">Language:</span>
-                <select className="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-white text-sm">
-                  <option value="en">EN</option>
-                  <option value="fr">FR</option>
-                  <option value="sw">SW</option>
-                  <option value="ar">AR</option>
-                </select>
-              </div>
-            </div>
-          </div>
+        <div className="border-t border-white/10 py-6 text-sm text-gray-400 flex flex-col md:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2">Privacy Policy <span className="opacity-40">|</span> Terms and Condition</div>
+          <div className="opacity-70">&copy; {new Date().getFullYear()} Maka-Laskas. All rights reserved.</div>
+          <div className="opacity-70">&copy; {new Date().getFullYear()} Designed by UiDesign U(LTD).</div>
         </div>
       </div>
     </footer>

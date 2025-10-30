@@ -1,4 +1,3 @@
-import Header from '@/components/Header';
 import HeroCarousel from '@/components/HeroCarousel';
 import { Star, MapPin, Clock, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -97,8 +96,75 @@ const Home = () => {
 
   return (
     <main className="min-h-screen">
-      <Header />
       <HeroCarousel />
+      
+      {/* About + Donation Spotlight */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            {/* Left: Donation card with tiger */}
+            <div className="relative h-80 rounded-xl overflow-hidden shadow-lg">
+              <img src="/img/img5.jpg" alt="Protect wildlife" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-black/50" />
+              <div className="relative z-10 p-6 text-white h-full flex flex-col justify-end">
+                <span className="text-[10px] tracking-widest uppercase text-white/80">Donation</span>
+                <h3 className="text-2xl font-extrabold mt-1">Help us more</h3>
+                <p className="text-sm uppercase tracking-wide text-white/90">Protect Animals</p>
+                <p className="mt-4 text-sm text-white/80 max-w-md">Your contribution supports habitats, rangers and local communities that keep East Africa wild and thriving.</p>
+                <Link href="/join#foundation" className="mt-4 inline-block px-4 py-2 text-sm font-semibold border border-white/70 rounded hover:bg-white hover:text-gray-900 transition-colors w-max">Donate</Link>
+              </div>
+            </div>
+
+            {/* Right: Words about */}
+            <div>
+              <div className="uppercase tracking-widest text-[11px] text-gray-500 mb-2">About us</div>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Words about <span className="text-gradient">Maka‑Laskas</span></h2>
+              <p className="text-xl text-gray-700 mb-6">We craft small‑group safaris that blend conservation, culture and comfort. Our trips are designed with Ubuntu values and delivered by local experts.</p>
+              <p className="text-gray-600 mb-6">From gorilla trekking to the Great Migration, volcano hikes to village immersions — travel that heals, connects and gives back.</p>
+              <Link href="/about" className="inline-block px-5 py-3 border border-gray-900 text-gray-900 rounded font-semibold hover:bg-gray-900 hover:text-white transition">More about</Link>
+            </div>
+          </div>
+
+          {/* Stats + Categories */}
+          <div className="mt-16">
+            <div className="mb-8">
+              <div className="uppercase tracking-widest text-[11px] text-gray-500">Our Animals</div>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Awesome wildlife in our destinations</h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+              {[
+                {label:'Reptiles', value:'850'},
+                {label:'Species', value:'230'},
+                {label:'Visitors', value:'160,000'},
+                {label:'Parks', value:'42'}
+              ].map((s)=> (
+                <div key={s.label} className="text-center">
+                  <div className="text-3xl font-extrabold text-gray-900">{s.value}</div>
+                  <div className="text-gray-500">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+              {[
+                {title:'Invertebrates', color:'bg-yellow-400', icon:'/img/img2.jpg'},
+                {title:'Bulls', color:'bg-gray-100', icon:'/img/img7.jpg'},
+                {title:'Giraffes', color:'bg-gray-900 text-white', icon:'/img/img4.jpg'},
+                {title:'Mammals', color:'bg-yellow-400', icon:'/img/img5.jpg'},
+                {title:'Birds', color:'bg-gray-100', icon:'/img/img3.jpg'},
+                {title:'Fishes', color:'bg-gray-900 text-white', icon:'/img/img1.jpg'}
+              ].map((c)=> (
+                <div key={c.title} className={`rounded-lg overflow-hidden shadow-sm ${c.color} group`}> 
+                  <div className="aspect-[4/3] relative">
+                    <img src={c.icon} alt={c.title} className="absolute inset-0 h-full w-full object-cover opacity-20 group-hover:opacity-30 transition" />
+                  </div>
+                  <div className="p-4 text-center font-semibold">{c.title}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* Global Value Proposition */}
       <section className="section-padding bg-white">
@@ -258,6 +324,58 @@ const Home = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Events section */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            {/* Left list */}
+            <div>
+              <div className="uppercase tracking-widest text-[11px] text-gray-500">Events</div>
+              <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">What’s happening <span className="text-gray-500 font-normal">nearest future</span></h3>
+              <div className="space-y-4">
+                {[
+                  {title:'Owls Show in Land', tag:'Birds', time:'11 - 10 PM', date:'10 November', img:'/img/img2.jpg'},
+                  {title:'Tiger Walking on the Street', tag:'Cats', time:'13 - 15 PM', date:'10 November', img:'/img/img5.jpg'},
+                  {title:'Parrots Photosession', tag:'Parrots', time:'15 - 18 PM', date:'10 November', img:'/img/img3.jpg'}
+                ].map((e)=> (
+                  <div key={e.title} className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
+                    <div className="w-40 h-28 relative flex-shrink-0">
+                      <img src={e.img} alt={e.title} className="absolute inset-0 h-full w-full object-cover" />
+                    </div>
+                    <div className="flex-1 p-4">
+                      <div className="font-semibold text-gray-900">{e.title}</div>
+                      <div className="text-sm text-gray-500">{e.tag}</div>
+                    </div>
+                    <div className="p-4 text-right text-sm text-gray-700">
+                      <div className="font-semibold">{e.time}</div>
+                      <div className="text-gray-500">{e.date}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Link href="#" className="inline-block mt-6 px-5 py-3 border border-gray-900 text-gray-900 rounded font-semibold hover:bg-gray-900 hover:text-white transition">See all events</Link>
+            </div>
+
+            {/* Right featured event */}
+            <div className="relative min-h-[520px] rounded-xl overflow-hidden">
+              <img src="/img/img6.jpg" alt="Monkeys Day" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-black/45" />
+              <div className="relative z-10 p-8 text-white h-full flex flex-col justify-between">
+                <div>
+                  <span className="uppercase tracking-widest text-[11px] text-white/80">Main Event</span>
+                  <h3 className="text-3xl md:text-4xl font-extrabold mt-2">Monkeys Day <br/>in our zoo</h3>
+                  <p className="mt-4 max-w-xl text-white/90">Storytelling walks, feeding time and conservation talks with rangers. Family friendly with limited spots.</p>
+                </div>
+                <div>
+                  <div className="mb-3 font-semibold">14 - 18 PM · 10 November</div>
+                  <Link href="#" className="inline-block px-5 py-3 border border-white text-white rounded font-semibold hover:bg-white hover:text-gray-900 transition">Discover</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

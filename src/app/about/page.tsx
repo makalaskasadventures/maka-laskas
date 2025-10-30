@@ -143,8 +143,9 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-96 bg-gradient-to-br from-orange-600 to-red-600 text-white">
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="relative h-96 text-white">
+        <img src="/img/about-us-background.jpg" alt="About background" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 container-custom h-full flex items-center">
           <div className="animate-fade-in">
             <h1 className="text-5xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

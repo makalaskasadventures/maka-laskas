@@ -14,7 +14,7 @@ export default function HeroCarousel() {
       country: 'Uganda',
       region: 'SOUTHWEST UGANDA',
       description: 'Experience the magic of mountain gorilla encounters in their natural habitat, combined with deep cultural immersion in local communities.',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/img/img1.jpg',
       category: 'Gorilla Trekking'
     },
     {
@@ -23,7 +23,7 @@ export default function HeroCarousel() {
       country: 'Tanzania',
       region: 'NORTHERN TANZANIA',
       description: 'Witness the greatest wildlife spectacle on Earth while supporting local Maasai communities and conservation efforts.',
-      image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/img/img2.jpg',
       category: 'Wildlife Safari'
     },
     {
@@ -32,7 +32,7 @@ export default function HeroCarousel() {
       country: 'Rwanda',
       region: 'NORTHERN RWANDA',
       description: 'Explore Rwanda\'s volcanic landscapes and immerse yourself in traditional village life and cultural experiences.',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/img/img3.jpg',
       category: 'Volcano Trekking'
     },
     {
@@ -41,7 +41,7 @@ export default function HeroCarousel() {
       country: 'Kenya',
       region: 'SOUTHWEST KENYA',
       description: 'Discover the incredible biodiversity of Kenya\'s most famous wildlife reserve and connect with Maasai culture.',
-      image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/img/img4.jpg',
       category: 'Safari Adventure'
     },
     {
@@ -50,7 +50,7 @@ export default function HeroCarousel() {
       country: 'Burundi',
       region: 'WESTERN BURUNDI',
       description: 'Experience the beauty of Africa\'s deepest lake and learn about local fishing traditions and community life.',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/img/img5.jpg',
       category: 'Lake Experience'
     },
     {
@@ -59,7 +59,7 @@ export default function HeroCarousel() {
       country: 'DRC',
       region: 'EASTERN DRC',
       description: 'Explore the diverse ecosystems of Africa\'s oldest national park, from rainforests to active volcanoes.',
-      image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/img/img6.jpg',
       category: 'Rainforest Adventure'
     }
   ];
@@ -95,11 +95,11 @@ export default function HeroCarousel() {
   return (
     <section className="relative h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div key={currentIndex} className="absolute inset-0">
         <img
           src={currentDestination.image}
           alt={currentDestination.name}
-          className="w-full h-full object-cover opacity-40 transition-opacity duration-1000"
+          className="w-full h-full object-cover opacity-40 transition duration-1000 ease-out scale-105 animate-[kenburns_10s_ease-in-out_infinite]"
         />
         <div className="absolute inset-0 bg-black/30" />
       </div>
@@ -141,7 +141,7 @@ export default function HeroCarousel() {
                 <img
                   src={currentDestination.image}
                   alt={currentDestination.name}
-                  className="w-full h-80 object-cover transition-transform duration-700 hover:scale-105"
+                  className="w-full h-80 object-cover transition duration-700 ease-out will-change-transform transform-gpu scale-100 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
@@ -173,7 +173,7 @@ export default function HeroCarousel() {
                 {destinations.map((destination, index) => (
                   <div
                     key={destination.id}
-                    className={`flex-shrink-0 w-48 h-32 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 transform ${
+                    className={`relative flex-shrink-0 w-48 h-32 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 transform-gpu ${
                       index === currentIndex 
                         ? 'scale-110 ring-2 ring-orange-500' 
                         : 'scale-100 hover:scale-105'
@@ -183,7 +183,7 @@ export default function HeroCarousel() {
                     <img
                       src={destination.image}
                       alt={destination.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
