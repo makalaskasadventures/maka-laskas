@@ -113,7 +113,11 @@ export default function Header() {
           {/* Desktop primary nav */}
           <nav className="hidden lg:flex items-center gap-2">
             {primary.map((item) => (
-              <div key={item.name} className="relative">
+              <div
+                key={item.name}
+                className="relative"
+                onMouseLeave={() => setOpenPrimary(null)}
+              >
                 {!item.dropdown ? (
                   <Link
                     href={item.href || '#'}
@@ -123,16 +127,20 @@ export default function Header() {
                   </Link>
                 ) : (
                   <>
-                    <button
+                    <Link
+                      href={item.href || '#'}
                       onMouseEnter={() => setOpenPrimary(item.name)}
-                      onMouseLeave={() => setOpenPrimary(null)}
                       className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 inline-flex items-center gap-1"
                     >
                       {item.name}
                       <ChevronDown className="h-4 w-4" />
-                    </button>
+                    </Link>
                     {openPrimary === item.name && (
-                      <div onMouseEnter={() => setOpenPrimary(item.name)} onMouseLeave={() => setOpenPrimary(null)} className="absolute left-0 top-full mt-2 w-80 rounded-md border border-gray-200 bg-white p-2 shadow-xl">
+                      <div
+                        onMouseEnter={() => setOpenPrimary(item.name)}
+                        onMouseLeave={() => setOpenPrimary(null)}
+                        className="absolute left-0 top-full mt-2 w-80 rounded-md border border-gray-200 bg-white p-2 shadow-xl"
+                      >
                         <div className="flex flex-col">
                           {item.dropdown.map((sub) => (
                             <Link
