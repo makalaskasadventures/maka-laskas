@@ -369,3 +369,8 @@ export default function AdventureDetailPage() {
 }
 
 
+
+
+
+
+

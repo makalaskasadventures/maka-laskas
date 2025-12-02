@@ -51,12 +51,12 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
         shortDescription: adventure.shortDescription || '',
         image: adventure.image || '',
         gallery: adventure.gallery || [],
-        duration: adventure.duration || 1,
-        groupSize: adventure.groupSize || 10,
-        minAge: adventure.minAge,
+        duration: adventure.duration ? Number(adventure.duration) : 1,
+        groupSize: adventure.groupSize ? Number(adventure.groupSize) : 10,
+        minAge: adventure.minAge ? Number(adventure.minAge) : null,
         difficulty: adventure.difficulty || 'MODERATE',
-        price: adventure.price || 0,
-        originalPrice: adventure.originalPrice,
+        price: adventure.price ? Number(adventure.price) : 0,
+        originalPrice: adventure.originalPrice ? Number(adventure.originalPrice) : null,
         isActive: adventure.isActive ?? true,
         isFeatured: adventure.isFeatured ?? false,
         isOnSale: adventure.isOnSale ?? false,
@@ -339,8 +339,8 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
               type="number"
               required
               min="1"
-              value={formData.duration}
-              onChange={(e) => handleChange('duration', parseInt(e.target.value))}
+              value={formData.duration || ''}
+              onChange={(e) => handleChange('duration', e.target.value ? parseInt(e.target.value) || 1 : 1)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             />
           </div>
@@ -353,8 +353,8 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
               type="number"
               required
               min="1"
-              value={formData.groupSize}
-              onChange={(e) => handleChange('groupSize', parseInt(e.target.value))}
+              value={formData.groupSize || ''}
+              onChange={(e) => handleChange('groupSize', e.target.value ? parseInt(e.target.value) || 10 : 10)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             />
           </div>
@@ -398,8 +398,8 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
               required
               min="0"
               step="0.01"
-              value={formData.price}
-              onChange={(e) => handleChange('price', parseFloat(e.target.value))}
+              value={formData.price || ''}
+              onChange={(e) => handleChange('price', e.target.value ? parseFloat(e.target.value) || 0 : 0)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             />
           </div>

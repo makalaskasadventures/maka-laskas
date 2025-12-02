@@ -5,9 +5,10 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -15,7 +16,7 @@ export async function GET(
     }
 
     const adventure = await prisma.adventure.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         country: true,
         destination: true,
@@ -43,9 +44,10 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -75,13 +77,60 @@ export async function PATCH(
     if (body.destinationId !== undefined) updateData.destinationId = body.destinationId || null;
     if (body.categoryId !== undefined) updateData.categoryId = body.categoryId;
     if (body.themeId !== undefined) updateData.themeId = body.themeId || null;
+    if (body.homepageFeaturedOrder !== undefined) updateData.homepageFeaturedOrder = body.homepageFeaturedOrder;
+    if (body.homepageSaleOrder !== undefined) updateData.homepageSaleOrder = body.homepageSaleOrder;
+
+    // Handle highlights - delete existing and create new ones
+    if (body.highlights !== undefined) {
+      // Delete existing highlights
+      await prisma.adventureHighlight.deleteMany({
+        where: { adventureId: id },
+      });
+      // Create new highlights
+      if (body.highlights.length > 0) {
+        updateData.highlights = {
+          create: body.highlights.map((h: any) => ({
+            title: h.title,
+            description: h.description || null,
+            icon: h.icon || null,
+          }))
+        };
+      }
+    }
+
+    // Handle itinerary - delete existing and create new ones
+    if (body.itinerary !== undefined) {
+      // Delete existing itinerary items
+      await prisma.itineraryItem.deleteMany({
+        where: { adventureId: id },
+      });
+      // Create new itinerary items
+      if (body.itinerary.length > 0) {
+        updateData.itinerary = {
+          create: body.itinerary.map((item: any) => ({
+            day: item.day,
+            title: item.title,
+            description: item.description || null,
+            activities: item.activities || [],
+            meals: item.meals || [],
+            accommodation: item.accommodation || null,
+          }))
+        };
+      }
+    }
 
     const adventure = await prisma.adventure.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
       include: {
         country: true,
         category: true,
+        highlights: true,
+        itinerary: {
+          orderBy: {
+            day: 'asc',
+          },
+        },
       },
     });
 
@@ -94,9 +143,10 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== 'ADMIN') {
@@ -104,7 +154,7 @@ export async function DELETE(
     }
 
     await prisma.adventure.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
@@ -113,5 +163,8 @@ export async function DELETE(
     return NextResponse.json({ error: 'Failed to delete adventure' }, { status: 500 });
   }
 }
+
+
+
 
 

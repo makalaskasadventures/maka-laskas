@@ -17,10 +17,16 @@ export async function GET(request: NextRequest) {
         destination: true,
         category: true,
         theme: true,
+        highlights: true,
+        itinerary: {
+          orderBy: {
+            day: 'asc',
+          },
+        },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: [
+        { createdAt: 'desc' },
+      ],
     });
 
     return NextResponse.json({ adventures });
@@ -61,10 +67,33 @@ export async function POST(request: NextRequest) {
         destinationId: body.destinationId || null,
         categoryId: body.categoryId,
         themeId: body.themeId || null,
+        highlights: body.highlights && body.highlights.length > 0 ? {
+          create: body.highlights.map((h: any) => ({
+            title: h.title,
+            description: h.description || null,
+            icon: h.icon || null,
+          }))
+        } : undefined,
+        itinerary: body.itinerary && body.itinerary.length > 0 ? {
+          create: body.itinerary.map((item: any) => ({
+            day: item.day,
+            title: item.title,
+            description: item.description || null,
+            activities: item.activities || [],
+            meals: item.meals || [],
+            accommodation: item.accommodation || null,
+          }))
+        } : undefined,
       },
       include: {
         country: true,
         category: true,
+        highlights: true,
+        itinerary: {
+          orderBy: {
+            day: 'asc',
+          },
+        },
       },
     });
 
@@ -74,5 +103,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to create adventure' }, { status: 500 });
   }
 }
+
+
+
 
 

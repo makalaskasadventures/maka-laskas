@@ -104,15 +104,26 @@ The website is fully responsive with breakpoints:
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
+
+For detailed deployment instructions with database and storage setup, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**.
+
+**Quick Steps:**
 1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically
+2. Create a Vercel Postgres database in Vercel dashboard
+3. Create a Vercel Blob store for file storage
+4. Connect your repository to Vercel
+5. Add environment variables (see DEPLOYMENT.md)
+6. Deploy and run database migrations
+
+**See [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md) for a step-by-step checklist.**
 
 ### Other Platforms
 The app can be deployed to any platform that supports Next.js:
 - Netlify
 - Railway
 - DigitalOcean App Platform
+
+**Note:** You'll need to configure PostgreSQL database and file storage separately on these platforms.
 
 ## 🔧 Customization
 

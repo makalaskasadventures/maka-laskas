@@ -3,12 +3,13 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await params
     const adventure = await prisma.adventure.findUnique({
       where: { 
-        slug: params.slug,
+        slug,
         isActive: true,
       },
       include: {
@@ -49,5 +50,8 @@ export async function GET(
     return NextResponse.json({ error: 'Failed to fetch adventure' }, { status: 500 });
   }
 }
+
+
+
 
 
