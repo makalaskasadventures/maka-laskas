@@ -397,7 +397,7 @@ async function main() {
   console.log('✅ Itinerary items created')
 
   // Hash password for demo users
-  const hashedPassword = await bcrypt.hash('admin123', 12)
+  const hashedPassword = await bcrypt.hash('AuthorizedAdmin@makalaskas', 12)
 
   // Delete existing testimonials and users first to ensure fresh data
   await prisma.testimonial.deleteMany({
