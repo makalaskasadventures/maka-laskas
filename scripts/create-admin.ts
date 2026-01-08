@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 async function main() {
   const email = process.env.ADMIN_EMAIL || 'admin@maka-laskas.com'
-  const password = process.env.ADMIN_PASSWORD || 'admin123'
+  const password = process.env.ADMIN_PASSWORD || 'AuthorizedAdmin@makalaskas'
   const name = process.env.ADMIN_NAME || 'Admin User'
 
   console.log('🔐 Creating admin user...')
