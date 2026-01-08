@@ -52,6 +52,15 @@ export default function AdventureDetailPage() {
     EXTREME: 'bg-red-100 text-red-800',
   };
 
+  const getWhatsAppUrl = () => {
+    const phoneNumber = '256765190820';
+    const adventureUrl = typeof window !== 'undefined' 
+      ? window.location.href 
+      : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/adventures/${adventure.slug}`;
+    const message = `i'd like to get more informtion about this! ${adventureUrl}`;
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  };
+
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Image Gallery */}
@@ -312,13 +321,15 @@ export default function AdventureDetailPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <Link
-                    href={`/adventures/${adventure.slug}/book`}
+                  <a
+                    href={getWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full btn-primary text-center flex items-center justify-center"
                   >
                     <Calendar className="w-4 h-4 mr-2" />
                     Book This Adventure
-                  </Link>
+                  </a>
                   <button className="w-full border-2 border-gray-300 text-gray-700 hover:border-orange-600 hover:text-orange-600 font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center">
                     <Heart className="w-4 h-4 mr-2" />
                     Save for Later
