@@ -12,7 +12,8 @@
     "db:reset": "prisma migrate reset --force",
     "db:studio": "prisma studio",
     "db:migrate:deploy": "prisma migrate deploy",
-    "db:migrate:data": "tsx scripts/migrate-data.ts"
+    "db:migrate:data": "tsx scripts/migrate-data.ts",
+    "db:create-admin": "tsx scripts/create-admin.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
