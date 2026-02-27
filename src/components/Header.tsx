@@ -185,7 +185,7 @@ export default function Header() {
                 </div>
               )}
             <Link href="/contact" className="inline-flex items-center gap-2 rounded bg-yellow-400 px-5 py-2 text-sm font-bold text-gray-900 hover:bg-yellow-500">
-              Tickets
+            Contact Us
               </Link>
             </div>
 

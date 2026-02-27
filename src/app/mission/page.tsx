@@ -162,12 +162,15 @@ export default function MissionPage() {
             </h2>
             <div className="bg-gray-50 p-8 rounded-xl border-2 border-orange-200">
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                We pledge to uphold these values in everything we do, from the smallest interaction to the grandest adventure. We commit to:
+                We pledge to uphold these values in everything we do, from the smallest interaction to the grandest
+                adventure. We commit to:
               </p>
               <ul className="space-y-4 text-gray-700">
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <span>Always prioritize the well-being of our travelers, local communities, and natural environments</span>
+                  <span>
+                    Always prioritize the well‑being of our travelers, local communities, and natural environments
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-4 flex-shrink-0"></div>
@@ -175,18 +178,282 @@ export default function MissionPage() {
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <span>Continuously improve our practices to minimize environmental impact and maximize positive social outcomes</span>
+                  <span>
+                    Continuously improve our practices to minimize environmental impact and maximize positive social
+                    outcomes
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <span>Foster authentic connections that respect cultural differences and celebrate human diversity</span>
+                  <span>
+                    Foster authentic connections that respect cultural differences and celebrate human diversity
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <span>Lead by example in sustainable tourism and inspire others to follow responsible travel practices</span>
+                  <span>
+                    Lead by example in sustainable tourism and inspire others to follow responsible travel practices
+                  </span>
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partnerships & Impact – Overview */}
+      <section id="partnerships" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-10">
+            <p className="text-xs uppercase tracking-[0.25em] text-orange-600 mb-2">
+              Partnerships &amp; Impact
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Building Impact Through Partnerships Rooted in Ubuntu
+            </h2>
+            <p className="text-gray-700 mb-4">
+              At Maka‑Laskas Adventures, every journey is more than travel — it’s a shared commitment to people, planet,
+              and purpose. Through partnerships with communities, conservationists, innovators, and global
+              organizations, we are redefining how travel impacts the world.
+            </p>
+            <p className="text-gray-700">
+              Partnership lies at the heart of our identity. We unite local communities, conservation networks,
+              institutions, and global allies under one shared vision: to create tourism models that protect nature,
+              celebrate culture, and empower people — guided by Ubuntu, “I am because we are.”
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-700">
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Community Partnerships</p>
+              <p>
+                Supporting local enterprises, cooperatives, and young entrepreneurs through fair, long‑term, and
+                empowering collaborations.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Conservation Partners</p>
+              <p>
+                Working hand‑in‑hand with rangers, sanctuaries, and researchers to preserve ecosystems and wildlife
+                habitats.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Institutional Collaborations</p>
+              <p>
+                Engaging ministries, tourism boards, and global agencies to align travel with sustainable development
+                goals.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Corporate &amp; NGO Alliances</p>
+              <p>
+                Building purposeful alliances that connect travel with education, environment, and social empowerment.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a
+              href="#ubuntu-commitments"
+              className="inline-flex items-center px-5 py-2 rounded-full bg-orange-600 text-white text-sm font-semibold hover:bg-orange-500 transition"
+            >
+              Our Commitments
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
+            <a
+              href="#alliance"
+              className="inline-flex items-center px-5 py-2 rounded-full border border-gray-900 text-gray-900 text-sm font-semibold hover:bg-gray-900 hover:text-white transition"
+            >
+              Partner With Us
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Ubuntu Commitments – Living Impact */}
+      <section id="ubuntu-commitments" className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Our Ubuntu Commitments to the World
+            </h2>
+            <p className="italic text-gray-700 mb-4">
+              “We travel not to consume, but to co‑create — with humility, intention, and care for all life.”
+            </p>
+            <p className="text-gray-700">
+              Our Living Impact pledge is our compass. It ensures every partnership and journey restores, uplifts, and
+              transforms — for people, the planet, wildlife, and future generations.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-700">
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <div className="w-14 h-14 mb-4 rounded-full bg-orange-500 flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs uppercase tracking-[0.25em] text-orange-500 mb-2">To People &amp; Communities</p>
+              <ul className="list-disc ml-5 space-y-1">
+                <li>Promote empathy, kindness, and cultural dignity in every traveler‑host interaction.</li>
+                <li>Ensure the physical, emotional, and psychological safety of clients, staff, and partners.</li>
+                <li>
+                  Empower youth, women, and indigenous voices through leadership pipelines and inclusive opportunities.
+                </li>
+                <li>
+                  Deliver transformative journeys that foster human connection, mutual respect, and cross‑cultural
+                  understanding.
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <div className="w-14 h-14 mb-4 rounded-full bg-green-600 flex items-center justify-center">
+                <Globe className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs uppercase tracking-[0.25em] text-green-600 mb-2">To the Planet</p>
+              <ul className="list-disc ml-5 space-y-1">
+                <li>Operate with a regenerative mindset — actively restoring ecosystems, not just reducing impact.</li>
+                <li>Reduce single‑use plastics, favour low‑emission transport, and offset trip footprints.</li>
+                <li>
+                  Integrate sustainable design into accommodations, itineraries, and procurement with circular thinking.
+                </li>
+                <li>Advocate for climate action and uphold global green tourism standards.</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <div className="w-14 h-14 mb-4 rounded-full bg-emerald-600 flex items-center justify-center">
+                <Heart className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs uppercase tracking-[0.25em] text-emerald-600 mb-2">To Wildlife &amp; Nature</p>
+              <ul className="list-disc ml-5 space-y-1">
+                <li>Uphold a strict zero‑exploitation policy in all wildlife and nature experiences.</li>
+                <li>
+                  Promote conservation through respectful observation, nature‑positive itineraries, and education.
+                </li>
+                <li>
+                  Support indigenous and community‑led conservation zones, rewilding work, and ethical corridors.
+                </li>
+                <li>Ensure animal welfare and biodiversity are central to partnerships and supply chains.</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <div className="w-14 h-14 mb-4 rounded-full bg-indigo-600 flex items-center justify-center">
+                <Star className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs uppercase tracking-[0.25em] text-indigo-600 mb-2">To Future Generations</p>
+              <ul className="list-disc ml-5 space-y-1">
+                <li>Inspire youth through Ubuntu journeys, school travel, and leadership programs.</li>
+                <li>Embed intergenerational responsibility into every decision we make.</li>
+                <li>Invest in education, skills transfer, and tourism‑related livelihoods.</li>
+                <li>
+                  Foster a culture of legacy‑building, where travel contributes to long‑term equity and sustainability.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Stories */}
+      <section id="impact-stories" className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Impact Stories That Inspire Change
+            </h2>
+            <p className="text-gray-700 mb-4">
+              Our story is told through the people and places we journey with. From reforestation efforts to community
+              education and wildlife protection, every Maka‑Laskas adventure leaves a living legacy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-gray-700 mb-8">
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Women of the Wild</p>
+              <p>Empowering rural women through eco‑tourism, guiding, and storytelling cooperatives.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Roots Reforestation Project</p>
+              <p>Travelers plant indigenous trees and help restore degraded lands around key corridors.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <p className="font-semibold text-gray-900 mb-2">Ubuntu Classrooms</p>
+              <p>Educational journeys and exchanges that bring knowledge, culture, and hope to schools.</p>
+            </div>
+          </div>
+
+          <Link
+            href="/media"
+            className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-900 text-gray-900 text-sm font-semibold hover:bg-gray-900 hover:text-white transition"
+          >
+            Discover Our Impact Projects
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </div>
+      </section>
+
+      {/* Annual Impact Reports */}
+      <section id="reports" className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Annual Impact Reports</h2>
+            <p className="text-gray-700">
+              We are committed to transparent, measurable impact. Our annual reports share stories, data, and lessons
+              from our partnerships across people, planet, wildlife, and youth.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-4 text-sm">
+            <Link
+              href="#"
+              className="inline-flex items-center px-5 py-2 rounded-full bg-gray-900 text-white font-semibold hover:bg-gray-800 transition"
+            >
+              Download Latest Report (PDF)
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+            <Link
+              href="#"
+              className="inline-flex items-center px-5 py-2 rounded-full border border-gray-900 text-gray-900 font-semibold hover:bg-gray-900 hover:text-white transition"
+            >
+              View All Reports
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Global Alliance */}
+      <section id="alliance" className="section-padding bg-gray-900 text-white">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join the Maka‑Laskas Global Alliance</h2>
+            <p className="text-white/90 mb-4">
+              We are building a worldwide network of partners and changemakers committed to Ubuntu‑inspired travel. The
+              Maka‑Laskas Global Alliance connects organizations, destinations, and leaders who believe in reimagining
+              tourism for shared good.
+            </p>
+            <p className="text-white/80">
+              By joining the alliance, you become part of a movement that advances sustainable development, community
+              empowerment, and responsible global tourism.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-gray-900 text-sm font-semibold hover:bg-gray-100 transition"
+            >
+              Become a Partner
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+            <Link
+              href="#"
+              className="inline-flex items-center px-6 py-3 rounded-lg border border-white text-white text-sm font-semibold hover:bg-white hover:text-gray-900 transition"
+            >
+              Download Alliance Proposal
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
           </div>
         </div>
       </section>

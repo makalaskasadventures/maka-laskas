@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import HeroCarousel from '@/components/HeroCarousel';
-import { Star, MapPin, Clock, Users, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import HeroCarousel from '@/components/HeroCarousel'
+import Testimonials from '@/components/Testimonials'
+import { MapPin, Clock, Users, ArrowRight, HeartHandshake, Globe2, Sparkles } from 'lucide-react'
+import Link from 'next/link'
 
 const Home = () => {
   const [featuredTrips, setFeaturedTrips] = useState<any[]>([])
@@ -65,122 +66,130 @@ const Home = () => {
   return (
     <main className="min-h-screen">
       <HeroCarousel />
-      
-      {/* About + Donation Spotlight */}
+
+      {/* Introduction About Us */}
       <section className="section-padding bg-white">
+        <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="uppercase tracking-[0.25em] text-[11px] text-orange-600 mb-3">
+              Home of Ubuntu Tourism
+            </p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
+              Maka‑Laskas Adventures is the Home of Ubuntu Tourism
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 mb-4">
+              Born in Africa and built for the world, we craft journeys where humanity leads travel —
+              connecting people, cultures, and wild places through small‑group adventures, founder‑led
+              safaris, immersive storytelling, and transformative experiences.
+            </p>
+            <p className="text-gray-700 font-semibold mb-6">
+              Ubuntu is not a slogan. It is how we travel.
+            </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center px-6 py-3 rounded-lg bg-gray-900 text-white font-semibold hover:bg-gray-800 transition"
+            >
+              Explore more
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-2xl overflow-hidden shadow-lg relative h-40 md:h-48">
+              <img
+                src="/img/img5.jpg"
+                alt="Community smiles"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-lg relative h-40 md:h-48 mt-6">
+              <img
+                src="/img/img3.jpg"
+                alt="Travelers connecting"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <div className="col-span-2 rounded-2xl overflow-hidden shadow-lg relative h-44 md:h-56">
+              <img
+                src="/img/img6.jpg"
+                alt="Landscapes of East Africa"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Travel With Purpose – Connect Through Ubuntu */}
+      <section className="section-padding bg-gray-50">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            {/* Left: Donation card with tiger */}
-            <div className="relative h-80 rounded-xl overflow-hidden shadow-lg">
-              <img src="/img/img5.jpg" alt="Protect wildlife" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-black/50" />
-              <div className="relative z-10 p-6 text-white h-full flex flex-col justify-end">
-                <span className="text-[10px] tracking-widest uppercase text-white/80">Donation</span>
-                <h3 className="text-2xl font-extrabold mt-1">Help us more</h3>
-                <p className="text-sm uppercase tracking-wide text-white/90">Protect Animals</p>
-                <p className="mt-4 text-sm text-white/80 max-w-md">Your contribution supports habitats, rangers and local communities that keep East Africa wild and thriving.</p>
-                <Link href="/join#foundation" className="mt-4 inline-block px-4 py-2 text-sm font-semibold border border-white/70 rounded hover:bg-white hover:text-gray-900 transition-colors w-max">Donate</Link>
-              </div>
-            </div>
-
-            {/* Right: Words about */}
-            <div>
-              <div className="uppercase tracking-widest text-[11px] text-gray-500 mb-2">About us</div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Words about <span className="text-gradient">Maka‑Laskas</span></h2>
-              <p className="text-xl text-gray-700 mb-6">We craft small‑group safaris that blend conservation, culture and comfort. Our trips are designed with Ubuntu values and delivered by local experts.</p>
-              <p className="text-gray-600 mb-6">From gorilla trekking to the Great Migration, volcano hikes to village immersions — travel that heals, connects and gives back.</p>
-              <Link href="/about" className="inline-block px-5 py-3 border border-gray-900 text-gray-900 rounded font-semibold hover:bg-gray-900 hover:text-white transition">More about</Link>
-            </div>
+          <div className="text-center mb-10 max-w-3xl mx-auto">
+            <p className="uppercase tracking-[0.25em] text-[11px] text-orange-600 mb-3">
+              Travel With Purpose
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Connect Through Ubuntu
+            </h2>
+            <p className="text-gray-600">
+              I am because you are. Together, we explore — every journey designed to unite hearts,
+              cultures, and wild places.
+            </p>
           </div>
 
-          {/* Stats + Categories */}
-          <div className="mt-16">
-            <div className="mb-8">
-              <div className="uppercase tracking-widest text-[11px] text-gray-500">Our Animals</div>
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-900">Awesome wildlife in our destinations</h3>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
-              {[
-                {label:'Reptiles', value:'850'},
-                {label:'Species', value:'230'},
-                {label:'Visitors', value:'160,000'},
-                {label:'Parks', value:'42'}
-              ].map((s)=> (
-                <div key={s.label} className="text-center">
-                  <div className="text-3xl font-extrabold text-gray-900">{s.value}</div>
-                  <div className="text-gray-500">{s.label}</div>
-                </div>
-              ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl shadow-md p-6">
+              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb  -4">
+                <HeartHandshake className="w-6 h-6 text-orange-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Adventures that unite hearts, cultures, and wild places
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Small‑group journeys designed for meaningful human connection, not mass tourism.
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-              {[
-                {title:'Invertebrates', color:'bg-yellow-400', icon:'/img/img2.jpg'},
-                {title:'Bulls', color:'bg-gray-100', icon:'/img/img7.jpg'},
-                {title:'Giraffes', color:'bg-gray-900 text-white', icon:'/img/img4.jpg'},
-                {title:'Mammals', color:'bg-yellow-400', icon:'/img/img5.jpg'},
-                {title:'Birds', color:'bg-gray-100', icon:'/img/img3.jpg'},
-                {title:'Fishes', color:'bg-gray-900 text-white', icon:'/img/img1.jpg'}
-              ].map((c)=> (
-                <div key={c.title} className={`rounded-lg overflow-hidden shadow-sm ${c.color} group`}> 
-                  <div className="aspect-[4/3] relative">
-                    <img src={c.icon} alt={c.title} className="absolute inset-0 h-full w-full object-cover opacity-20 group-hover:opacity-30 transition" />
-                  </div>
-                  <div className="p-4 text-center font-semibold">{c.title}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Global Value Proposition */}
-      <section className="section-padding bg-white">
-        <div className="container-custom text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12 animate-fade-in">
-            Real and remarkable small group trips across East Africa
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8 text-orange-600" />
+            <div className="bg-white rounded-2xl shadow-md p-6">
+              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <Globe2 className="w-6 h-6 text-orange-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">1000s of experiences, over 6 countries</h3>
-              <p className="text-gray-600">From gorilla trekking to wildlife safaris, discover the best of East Africa</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Born in Africa. Built for the world.
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Locally rooted, globally minded — crafted by East Africans for travelers everywhere.
+              </p>
             </div>
-            
-            <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-orange-600" />
+
+            <div className="bg-white rounded-2xl shadow-md p-6">
+              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-orange-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Shared adventures with like-minded people</h3>
-              <p className="text-gray-600">Connect with fellow travelers who share your passion for authentic experiences</p>
-            </div>
-            
-            <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-8 h-8 text-orange-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Creating positive change since 2008</h3>
-              <p className="text-gray-600">Supporting local communities and conservation efforts across the region</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Ubuntu is how we travel
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Every itinerary is built on reciprocity, respect, and shared humanity.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Trips Section */}
+      {/* Maka‑Laskas Only Experiences – Signature Adventures */}
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
             <div className="animate-fade-in-left">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Only Maka-Laskas experiences</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Maka‑Laskas Experiences You Won’t Find Anywhere Else
+              </h2>
               <div className="w-20 h-1 bg-orange-500 rounded"></div>
             </div>
             
             <div className="animate-fade-in-right">
               <Link href="/adventures" className="btn-primary inline-flex items-center">
-                Explore all trips
+                Explore all experiences
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -232,6 +241,12 @@ const Home = () => {
                         <span className="text-gray-500 line-through">From USD {trip.originalPrice}</span>
                         <div className="text-lg font-bold text-orange-600">USD {trip.salePrice}</div>
                       </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className="text-xs font-semibold text-orange-600 uppercase">
+                          Explore this way
+                        </span>
+                        <span className="text-[11px] text-gray-500">or book now</span>
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -245,18 +260,26 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sale Trips Section */}
+      {/* East Africa Packages */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
             <div className="animate-fade-in-left">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">East Africa Sale</h2>
+              <p className="uppercase tracking-[0.25em] text-[11px] text-orange-600 mb-2">
+                East Africa Packages
+              </p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Explore the Wonders of East Africa
+              </h2>
+              <p className="text-sm text-gray-600">
+                Every journey creates connection — with landscapes, wildlife, and the communities who call them home.
+              </p>
               <div className="w-20 h-1 bg-orange-500 rounded"></div>
             </div>
             
             <div className="animate-fade-in-right">
               <Link href="/adventures" className="btn-primary inline-flex items-center">
-                Explore trips on sale
+                Discover destinations
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -322,73 +345,237 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Events section */}
+      {/* Why Travel With Maka‑Laskas */}
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            {/* Left list */}
-            <div>
-              <div className="uppercase tracking-widest text-[11px] text-gray-500">Events</div>
-              <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">What’s happening <span className="text-gray-500 font-normal">nearest future</span></h3>
-              <div className="space-y-4">
-                {[
-                  {title:'Owls Show in Land', tag:'Birds', time:'11 - 10 PM', date:'10 November', img:'/img/img2.jpg'},
-                  {title:'Tiger Walking on the Street', tag:'Cats', time:'13 - 15 PM', date:'10 November', img:'/img/img5.jpg'},
-                  {title:'Parrots Photosession', tag:'Parrots', time:'15 - 18 PM', date:'10 November', img:'/img/img3.jpg'}
-                ].map((e)=> (
-                  <div key={e.title} className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
-                    <div className="w-40 h-28 relative flex-shrink-0">
-                      <img src={e.img} alt={e.title} className="absolute inset-0 h-full w-full object-cover" />
-                    </div>
-                    <div className="flex-1 p-4">
-                      <div className="font-semibold text-gray-900">{e.title}</div>
-                      <div className="text-sm text-gray-500">{e.tag}</div>
-                    </div>
-                    <div className="p-4 text-right text-sm text-gray-700">
-                      <div className="font-semibold">{e.time}</div>
-                      <div className="text-gray-500">{e.date}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Link href="#" className="inline-block mt-6 px-5 py-3 border border-gray-900 text-gray-900 rounded font-semibold hover:bg-gray-900 hover:text-white transition">See all events</Link>
-            </div>
+          <div className="text-center mb-12 max-w-3xl mx-auto">
+            <p className="uppercase tracking-[0.25em] text-[11px] text-orange-600 mb-3">
+              Why Travel With Maka‑Laskas
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Ubuntu Journeys, Transforming Tourism Across Africa and the World
+            </h2>
+            <p className="text-gray-600">
+              Purpose‑led adventures that centre people, planet, and shared stories.
+            </p>
+          </div>
 
-            {/* Right featured event */}
-            <div className="relative min-h-[520px] rounded-xl overflow-hidden">
-              <img src="/img/img6.jpg" alt="Monkeys Day" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-black/45" />
-              <div className="relative z-10 p-8 text-white h-full flex flex-col justify-between">
-                <div>
-                  <span className="uppercase tracking-widest text-[11px] text-white/80">Main Event</span>
-                  <h3 className="text-3xl md:text-4xl font-extrabold mt-2">Monkeys Day <br/>in our zoo</h3>
-                  <p className="mt-4 max-w-xl text-white/90">Storytelling walks, feeding time and conservation talks with rangers. Family friendly with limited spots.</p>
-                </div>
-                <div>
-                  <div className="mb-3 font-semibold">14 - 18 PM · 10 November</div>
-                  <Link href="#" className="inline-block px-5 py-3 border border-white text-white rounded font-semibold hover:bg-white hover:text-gray-900 transition">Discover</Link>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <Users className="w-5 h-5 text-orange-600" />
               </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Small‑group, founder‑led journeys</h3>
+              <p className="text-sm text-gray-600">
+                Intimate trips hosted by local experts who live the Ubuntu way.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <MapPin className="w-5 h-5 text-orange-600" />
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Community‑anchored itineraries</h3>
+              <p className="text-sm text-gray-600">
+                Travel built with, not just through, the communities you meet.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <HeartHandshake className="w-5 h-5 text-orange-600" />
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Travel that gives back</h3>
+              <p className="text-sm text-gray-600">
+                A portion of every journey supports local projects and conservation.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                <Sparkles className="w-5 h-5 text-orange-600" />
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Stories that stay with you</h3>
+              <p className="text-sm text-gray-600">
+                Circle‑style storytelling, campfires, and reflection woven into each itinerary.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="flex-1 rounded-2xl overflow-hidden shadow-lg relative h-64">
+              <img
+                src="/img/img4.jpg"
+                alt="Ubuntu journeys video"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-6">
+                <p className="uppercase tracking-[0.25em] text-[11px] text-white/80 mb-3">
+                  Watch
+                </p>
+                <h3 className="text-2xl font-bold mb-2">Discover the Ubuntu Way</h3>
+                <p className="text-sm text-white/80 max-w-md">
+                  A glimpse into how each journey is crafted with care, connection, and community at the centre.
+                </p>
+              </div>
+            </div>
+            <div className="flex-1 max-w-md text-center lg:text-left">
+              <p className="text-gray-700 mb-4">
+                From first enquiry to final goodbye, we walk with you — and alongside the communities who make every
+                journey possible.
+              </p>
+              <Link
+                href="/mission"
+                className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-900 text-gray-900 font-semibold hover:bg-gray-900 hover:text-white transition"
+              >
+                Discover the Ubuntu Way
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Explore the Stories – Media & Stories Spotlight */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="text-center mb-10 max-w-3xl mx-auto">
+            <p className="uppercase tracking-[0.25em] text-[11px] text-orange-600 mb-3">
+              Explore the Stories
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Every Journey Tells a Story
+            </h2>
+            <p className="text-gray-600">
+              From community circles to wildlife encounters, step into the stories that shape Maka‑Laskas adventures.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="md:col-span-2 rounded-2xl overflow-hidden shadow-lg relative h-64">
+              <img
+                src="/img/img2.jpg"
+                alt="Travelers connecting with communities"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="relative z-10 p-6 text-white absolute bottom-0 left-0 right-0">
+                <h3 className="text-xl font-semibold mb-1">Travelers Connecting with Communities</h3>
+                <p className="text-sm text-white/80">
+                  Journey alongside local hosts, cooperatives, and storytellers.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden shadow-lg relative h-64">
+              <img
+                src="/img/img1.jpg"
+                alt="Wildlife & nature moments"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/35" />
+              <div className="relative z-10 p-4 text-white absolute bottom-0 left-0 right-0">
+                <h3 className="text-lg font-semibold">Wildlife & Nature Moments</h3>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden shadow-lg relative h-64">
+              <img
+                src="/img/img7.jpg"
+                alt="Storytelling circles around the campfire"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 p-4 text-white absolute bottom-0 left-0 right-0">
+                <h3 className="text-lg font-semibold">Storytelling Circles & Campfires</h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-gray-600 max-w-xl">
+              From community to wildlife, every journey tells a story worth sharing — through film, photography, and
+              first‑hand reflections.
+            </p>
+            <Link
+              href="/media"
+              className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-900 text-gray-900 font-semibold hover:bg-gray-900 hover:text-white transition"
+            >
+              Read travelers’ stories / Watch videos
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Join the Movement / Social Impact */}
+      <section className="section-padding bg-gray-900 text-white">
+        <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="uppercase tracking-[0.25em] text-[11px] text-orange-300 mb-3">
+              Join the Movement
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Travel That Gives Back</h2>
+            <p className="text-gray-200 mb-6">
+              Each journey supports partnerships, community‑driven projects, and global citizenship initiatives across
+              East Africa — from education and youth leadership to conservation and livelihoods.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/join"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-gray-900 font-semibold hover:bg-gray-100 transition"
+              >
+                Join the Movement
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+              <Link
+                href="/join#projects"
+                className="inline-flex items-center px-6 py-3 rounded-lg border border-white text-white font-semibold hover:bg-white hover:text-gray-900 transition"
+              >
+                Support a Project
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-2xl overflow-hidden relative h-40 md:h-48">
+              <img
+                src="/img/img3.jpg"
+                alt="Community partnership"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden relative h-40 md:h-48 mt-6">
+              <img
+                src="/img/img5.jpg"
+                alt="Youth and community engagement"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Traveler Stories / Testimonials */}
+      <Testimonials />
+
       {/* Call to Action Section */}
       <section className="section-padding bg-gradient-to-br from-orange-600 to-red-600 text-white">
         <div className="container-custom text-center">
           <div className="animate-fade-in">
-            <h2 className="text-4xl font-bold mb-6">Ready to Start Your East Africa Adventure?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Start Your Journey With Maka‑Laskas?
+            </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join us on transformative journeys that heal, connect, and inspire. Discover the magic of East Africa with our Ubuntu-inspired adventures.
+              Join us on Ubuntu‑inspired adventures that connect you to community, wildlife, and the stories that
+              shape East Africa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/adventures" className="bg-white text-orange-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center">
-                Browse All Adventures
+                Book Your Adventure
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link href="/contact" className="border-2 border-white text-white hover:bg-white hover:text-orange-600 font-semibold py-4 px-8 rounded-lg transition-all duration-300 inline-flex items-center">
-                Contact Our Team
+                Explore Packages
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>

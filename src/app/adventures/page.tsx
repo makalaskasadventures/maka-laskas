@@ -53,36 +53,43 @@ export default function AdventuresPage() {
     setCurrentPage(1); // Reset to first page when search changes
   }, [searchTerm]);
 
-  const adventureCategories = [
+  // Ways to travel (Ubuntu-inspired styles)
+  const waysToTravel = [
     {
-      title: 'Signature Journeys',
-      description: 'Our most transformative and carefully crafted adventures that combine multiple experiences.',
+      title: 'Ubuntu Signature Journeys',
+      description: 'Curated journeys that weave together story, culture, and conservation under the Ubuntu philosophy.',
       icon: Star,
-      count: '12 trips'
+      count: 'Signature collection'
     },
     {
-      title: 'Ubuntu Trails',
-      description: 'Community-focused journeys that connect travelers with local people and cultures.',
-      icon: Heart,
-      count: '8 trips'
-    },
-    {
-      title: 'Purposeful Safaris',
-      description: 'Wildlife experiences that contribute to conservation and community development.',
+      title: 'Ubuntu Nature & Wildlife Safaris',
+      description: 'Immersive safaris that respect wildlife and restore ecosystems across iconic landscapes.',
       icon: Leaf,
-      count: '15 trips'
+      count: 'Wildlife routes'
     },
     {
-      title: 'Village Immersions',
-      description: 'Deep cultural experiences living and learning with local communities.',
-      icon: GroupIcon,
-      count: '6 trips'
-    },
-    {
-      title: 'Founder-Led Healing Tours',
-      description: 'Special journeys led by our founder for deep personal transformation.',
+      title: 'Ubuntu Culture & Heritage Tours',
+      description: 'Deep dives into living heritage, ancestral stories, and community arts across regions.',
       icon: Heart,
-      count: '4 trips'
+      count: 'Heritage paths'
+    },
+    {
+      title: 'Private Ubuntu Escapes',
+      description: 'Tailored journeys for couples, families, or friends seeking privacy, depth, and reflection.',
+      icon: GroupIcon,
+      count: 'Private escapes'
+    },
+    {
+      title: 'Group Ubuntu Expeditions',
+      description: 'Shared adventures for groups, collectives, and organizations traveling with shared purpose.',
+      icon: Users,
+      count: 'Group journeys'
+    },
+    {
+      title: 'Ubuntu Volunteer & Youth Journeys',
+      description: 'Service‑oriented, learning‑focused experiences for youth, students, and emerging leaders.',
+      icon: Globe,
+      count: 'Youth & student'
     }
   ];
 
@@ -126,13 +133,127 @@ export default function AdventuresPage() {
         <img src="/img/our-adventures-background.jpg" alt="Adventures background" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 container-custom h-full flex items-center">
-          <div className="animate-fade-in">
-            <h1 className="text-5xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="animate-fade-in max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.25em] text-orange-300 mb-3">
               Our Adventures
-            </h1>
-            <p className="text-xl max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              Discover transformative journeys that heal, connect, and inspire across the diverse landscapes and cultures of East Africa.
             </p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              Where Travel Becomes Transformation
+            </h1>
+            <p className="text-lg md:text-xl max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              Journeys that connect people, communities, wildlife, and cultures across Africa — rooted in Ubuntu and
+              crafted for impact, storytelling, and shared humanity.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Journeys That Connect, Inspire, and Transform */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="max-w-3xl mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Journeys That Connect, Inspire, and Transform
+            </h2>
+            <p className="text-gray-700 mb-4">
+              At Maka‑Laskas Adventures, every journey is more than a trip — it’s a story waiting to unfold. Whether
+              you’re exploring landscapes, connecting with communities, or joining a founder‑led signature experience,
+              our adventures are rooted in purpose, impact, and the Ubuntu philosophy: “I am because we are.”
+            </p>
+            <div className="flex flex-wrap gap-4 mt-4">
+              <Link
+                href="#all-adventures"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-orange-600 text-white font-semibold hover:bg-orange-500 transition"
+              >
+                Book Your Adventure
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+              <Link
+                href="#founder-signature"
+                className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-900 text-gray-900 font-semibold hover:bg-gray-900 hover:text-white transition"
+              >
+                Join a Founder‑Led Journey
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Travel Tiers */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-gray-700">
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-600 flex items-center justify-center">
+                <Globe className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 mb-2">
+                Essence Tier – Embark &amp; Discover
+              </p>
+              <p className="text-xs text-gray-500 mb-3">Ideal for first‑time explorers and young travelers.</p>
+              <p className="mb-3">
+                A thoughtfully curated journey that introduces you to local communities, wildlife, and cultural
+                heritage, while keeping sustainability and ethical engagement at the forefront.
+              </p>
+              <p className="font-semibold text-gray-900 mb-2">What you do</p>
+              <ul className="list-disc ml-5 space-y-1 mb-3">
+                <li>Engage in light conservation projects or cultural exchanges.</li>
+                <li>Learn about local traditions, music, and storytelling.</li>
+                <li>Experience nature and wildlife through guided walks and safaris.</li>
+              </ul>
+              <p className="font-semibold text-gray-900 mb-1">What’s included</p>
+              <p className="mb-3">
+                Eco‑lodges or community stays, locally sourced meals, and professional guides with deep local
+                knowledge.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-yellow-500 flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-yellow-600 mb-2">
+                Roots Tier – Engage &amp; Grow
+              </p>
+              <p className="text-xs text-gray-500 mb-3">Ideal for mid‑range travelers seeking deeper connection.</p>
+              <p className="mb-3">
+                A multi‑day immersive journey that balances adventure, cultural insight, and conservation impact for
+                travelers who want to go beyond sightseeing.
+              </p>
+              <p className="font-semibold text-gray-900 mb-2">What you do</p>
+              <ul className="list-disc ml-5 space-y-1 mb-3">
+                <li>Participate in community‑led projects and storytelling circles.</li>
+                <li>Join guided safaris and interactive educational experiences.</li>
+                <li>Enjoy curated cultural workshops and performances.</li>
+              </ul>
+              <p className="font-semibold text-gray-900 mb-1">What’s included</p>
+              <p className="mb-3">
+                Boutique eco‑lodges, curated meals, expert guides and cultural facilitators, and personalized touches in
+                your itinerary.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-purple-700 flex items-center justify-center">
+                <Star className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-purple-700 mb-2">
+                Legacy Tier – Luxury &amp; Impact
+              </p>
+              <p className="text-xs text-gray-500 mb-3">Ideal for high‑end travelers seeking transformative journeys.</p>
+              <p className="mb-3">
+                Fully curated luxury adventures that blend world‑class comfort, cultural immersion, and measurable
+                impact — for those who want exclusivity and purpose combined.
+              </p>
+              <p className="font-semibold text-gray-900 mb-2">What you do</p>
+              <ul className="list-disc ml-5 space-y-1 mb-3">
+                <li>Join high‑impact conservation or community projects.</li>
+                <li>Engage in intimate storytelling sessions with local leaders and the founder.</li>
+                <li>Explore remote destinations through bespoke itineraries.</li>
+              </ul>
+              <p className="font-semibold text-gray-900 mb-1">What’s included</p>
+              <p className="mb-3">
+                Luxury eco‑lodges or private camps, chef‑prepared meals, private guides and concierge support, and
+                premium activities.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -157,15 +278,15 @@ export default function AdventuresPage() {
         </div>
       </section>
 
-      {/* All Adventures */}
-      <section className="section-padding bg-white">
+      {/* All Adventures – Destinations & Packages */}
+      <section id="all-adventures" className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
               All Adventures
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Experience our transformative journeys across East Africa
+              Explore destinations, communities, and stories across our Ubuntu‑inspired journeys.
             </p>
           </div>
 
@@ -307,20 +428,21 @@ export default function AdventuresPage() {
         </div>
       </section>
 
-      {/* Adventure Categories */}
-      <section className="section-padding bg-gray-50">
+      {/* Ways to Travel */}
+      <section id="tiers" className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Adventure Categories
+              Ways to Travel with Maka‑Laskas
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Choose from our carefully curated selection of adventure types, each designed to create meaningful connections and transformative experiences.
+              Choose how you want to journey — from Ubuntu Signature Journeys to Youth, Volunteer, and Private Ubuntu
+              escapes, each style is rooted in connection and impact.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {adventureCategories.map((category, index) => (
+            {waysToTravel.map((category, index) => (
               <div
                 key={category.title}
                 className="bg-gray-50 p-8 rounded-xl hover:bg-orange-50 transition-colors group animate-fade-in-up"
@@ -380,23 +502,168 @@ export default function AdventuresPage() {
         </div>
       </section>
 
+      {/* Founder-Led Signature Journeys – Every Journey Tells a Story */}
+      <section id="founder-signature" className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-10">
+            <p className="text-xs uppercase tracking-[0.25em] text-orange-600 mb-2">
+              Founder‑Led Signature Journeys
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Every Journey Tells a Story
+            </h2>
+            <p className="text-gray-700 mb-4">
+              Step into journeys personally guided or inspired by our founder, where every experience is curated with
+              purpose, narrative, and the Ubuntu spirit. These are not just itineraries — they are living stories that
+              connect travelers, communities, and landscapes.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-gray-700 mb-10">
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-2">The Journey of Connection</h3>
+              <p className="mb-3">
+                Travel through communities where Ubuntu is lived daily — learning, sharing, and leaving tangible
+                impact alongside local hosts and the founder.
+              </p>
+              <p className="text-xs text-gray-500 mb-3">Highlights: welcome circle, community engagement, storytelling evenings.</p>
+              <Link href="#" className="text-orange-600 font-semibold inline-flex items-center">
+                Book The Journey of Connection
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Link>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-2">The Path of Heritage</h3>
+              <p className="mb-3">
+                Follow stories passed down through generations — from artisans and performers to elders sharing music,
+                ritual, and wisdom.
+              </p>
+              <p className="text-xs text-gray-500 mb-3">Highlights: heritage sites, performances, elder storytelling.</p>
+              <Link href="#" className="text-orange-600 font-semibold inline-flex items-center">
+                Book The Path of Heritage
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Link>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-2">The Adventure of Conservation</h3>
+              <p className="mb-3">
+                Join wildlife monitoring, tree planting, and habitat restoration while exploring some of Africa’s most
+                remarkable ecosystems.
+              </p>
+              <p className="text-xs text-gray-500 mb-3">Highlights: conservation projects, guided safaris, reflection circles.</p>
+              <Link href="#" className="text-orange-600 font-semibold inline-flex items-center">
+                Book The Adventure of Conservation
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="max-w-3xl">
+            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 mb-4">
+              <p className="italic text-gray-800 mb-2">
+                “Every story told on this journey became part of my own life. It wasn’t just a trip — it was a
+                transformation.”
+              </p>
+              <p className="text-xs text-gray-600">— Traveler reflection, Signature Journey 2025</p>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="#all-adventures"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-orange-600 text-white text-sm font-semibold hover:bg-orange-500 transition"
+              >
+                Book a Founder‑Led Journey
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+              <Link
+                href="/media"
+                className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-900 text-gray-900 text-sm font-semibold hover:bg-gray-900 hover:text-white transition"
+              >
+                Explore More Stories
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sustainable & Responsible Travel */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="max-w-4xl mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Sustainable &amp; Responsible Travel
+            </h2>
+            <p className="text-gray-700 mb-4">
+              All Maka‑Laskas adventures are designed with the planet, communities, and future generations in mind —
+              we travel not to consume, but to co‑create with humility, intention, and care for all life.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-gray-700 mb-6">
+            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <div className="w-12 h-12 mb-3 rounded-full bg-orange-500 flex items-center justify-center">
+                <Users className="w-5 h-5 text-white" />
+              </div>
+              <p className="font-semibold text-gray-900 mb-1">People</p>
+              <p>Empowering communities, uplifting youth and women, and creating safe, transformative experiences.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <div className="w-12 h-12 mb-3 rounded-full bg-green-600 flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-white" />
+              </div>
+              <p className="font-semibold text-gray-900 mb-1">Planet</p>
+              <p>Restoring ecosystems, reducing footprints, and championing sustainable practices.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <div className="w-12 h-12 mb-3 rounded-full bg-sky-600 flex items-center justify-center">
+                <Mountain className="w-5 h-5 text-white" />
+              </div>
+              <p className="font-semibold text-gray-900 mb-1">Wildlife</p>
+              <p>Protecting animals, supporting conservation initiatives, and prioritizing ethical tourism.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <div className="w-12 h-12 mb-3 rounded-full bg-indigo-600 flex items-center justify-center">
+                <Globe className="w-5 h-5 text-white" />
+              </div>
+              <p className="font-semibold text-gray-900 mb-1">Future Generations</p>
+              <p>Educating, inspiring, and ensuring each journey contributes to a legacy of equity and sustainability.</p>
+            </div>
+          </div>
+          <Link
+            href="/mission"
+            className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-900 text-gray-900 text-sm font-semibold hover:bg-gray-900 hover:text-white transition"
+          >
+            Learn About Our Impact
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </div>
+      </section>
+
       {/* Call to Action */}
       <section className="section-padding bg-gradient-to-br from-orange-600 to-red-600 text-white">
         <div className="container-custom text-center">
           <div className="animate-fade-in">
-            <h2 className="text-4xl font-bold mb-6">Ready to Start Your Adventure?</h2>
+            <h2 className="text-4xl font-bold mb-6">Why Travel With Maka‑Laskas?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join us on transformative journeys that will change the way you see the world and yourself.
+              Step into a new way of traveling — where adventure meets purpose, every journey supports people and
+              wildlife, and you return transformed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-orange-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center">
-                Browse All Adventures
+              <Link
+                href="#all-adventures"
+                className="bg-white text-orange-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center"
+              >
+                Book Your Journey
                 <ArrowRight className="w-4 h-4 ml-2" />
-              </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-orange-600 font-semibold py-4 px-8 rounded-lg transition-all duration-300 inline-flex items-center">
-                Contact Our Team
+              </Link>
+              <Link
+                href="#founder-signature"
+                className="border-2 border-white text-white hover:bg-white hover:text-orange-600 font-semibold py-4 px-8 rounded-lg transition-all duration-300 inline-flex items-center"
+              >
+                Join a Founder‑Led Tour
                 <ArrowRight className="w-4 h-4 ml-2" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
