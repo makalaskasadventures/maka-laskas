@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "AdventureTier" AS ENUM ('EDUCATION', 'EMBARK_AND_DISCOVER', 'ENGAGE_AND_GROW', 'LUXURY_AND_IMPACT');
+
+-- AlterTable
+ALTER TABLE "adventures" ADD COLUMN     "tier" "AdventureTier" NOT NULL DEFAULT 'EMBARK_AND_DISCOVER';

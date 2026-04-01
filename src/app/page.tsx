@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import HeroCarousel from '@/components/HeroCarousel'
+import DiscoverTiersHero from '@/components/DiscoverTiersHero'
 import Testimonials from '@/components/Testimonials'
 import { MapPin, Clock, Users, ArrowRight, HeartHandshake, Globe2, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
 const Home = () => {
   const [featuredTrips, setFeaturedTrips] = useState<any[]>([])
-  const [saleTrips, setSaleTrips] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -21,40 +21,33 @@ const Home = () => {
       if (response.ok) {
         const data = await response.json()
         const allAdventures = data.adventures || []
-        
-        // Get featured adventures (homepageFeaturedOrder 1-5)
-        const featured = allAdventures
-          .filter((adv: any) => adv.homepageFeaturedOrder !== null && adv.homepageFeaturedOrder >= 1 && adv.homepageFeaturedOrder <= 5)
-          .sort((a: any, b: any) => (a.homepageFeaturedOrder || 0) - (b.homepageFeaturedOrder || 0))
-          .map((adv: any) => ({
-            id: adv.id,
-            slug: adv.slug,
-            image: adv.image || 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-            overlayText: adv.shortDescription || adv.title,
-            duration: `${adv.duration} days`,
-            tripName: adv.title,
-            originalPrice: adv.originalPrice ? `$${Number(adv.originalPrice).toLocaleString()}` : `$${Number(adv.price).toLocaleString()}`,
-            salePrice: `$${Number(adv.price).toLocaleString()}`,
-            location: adv.destination?.name || adv.country.name
-          }))
 
-        // Get sale adventures (homepageSaleOrder 1-5)
-        const sale = allAdventures
-          .filter((adv: any) => adv.homepageSaleOrder !== null && adv.homepageSaleOrder >= 1 && adv.homepageSaleOrder <= 5)
-          .sort((a: any, b: any) => (a.homepageSaleOrder || 0) - (b.homepageSaleOrder || 0))
-          .map((adv: any) => ({
-            id: adv.id,
-            slug: adv.slug,
-            mapImage: adv.image || 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
-            duration: `${adv.duration} days`,
-            tripName: adv.title,
-            originalPrice: adv.originalPrice ? `$${Number(adv.originalPrice).toLocaleString()}` : `$${Number(adv.price).toLocaleString()}`,
-            salePrice: `$${Number(adv.price).toLocaleString()}`,
-            location: adv.destination?.name || adv.country.name
-          }))
+        const mapFeatured = (adv: any) => ({
+          id: adv.id,
+          slug: adv.slug,
+          image: adv.image || 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+          overlayText: adv.shortDescription || adv.title,
+          duration: `${adv.duration} days`,
+          tripName: adv.title,
+          originalPrice: adv.originalPrice ? `$${Number(adv.originalPrice).toLocaleString()}` : `$${Number(adv.price).toLocaleString()}`,
+          salePrice: `$${Number(adv.price).toLocaleString()}`,
+          location: adv.destination?.name || adv.country.name,
+        })
+
+        // Prefer admin-assigned slots (homepageFeaturedOrder 1–5); otherwise show any featured adventures (e.g. after seed)
+        const slotted = allAdventures
+          .filter(
+            (adv: any) =>
+              adv.homepageFeaturedOrder != null &&
+              adv.homepageFeaturedOrder >= 1 &&
+              adv.homepageFeaturedOrder <= 5
+          )
+          .sort((a: any, b: any) => (a.homepageFeaturedOrder || 0) - (b.homepageFeaturedOrder || 0))
+
+        const featuredSource = slotted.length > 0 ? slotted : allAdventures.slice(0, 5)
+        const featured = featuredSource.map(mapFeatured)
 
         setFeaturedTrips(featured)
-        setSaleTrips(sale)
       }
     } catch (error) {
       console.error('Failed to fetch homepage adventures:', error)
@@ -138,7 +131,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl shadow-md p-6">
-              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb  -4">
+              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4">
                 <HeartHandshake className="w-6 h-6 text-orange-600" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -260,90 +253,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* East Africa Packages */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
-            <div className="animate-fade-in-left">
-              <p className="uppercase tracking-[0.25em] text-[11px] text-orange-600 mb-2">
-                East Africa Packages
-              </p>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                Explore the Wonders of East Africa
-              </h2>
-              <p className="text-sm text-gray-600">
-                Every journey creates connection — with landscapes, wildlife, and the communities who call them home.
-              </p>
-              <div className="w-20 h-1 bg-orange-500 rounded"></div>
-            </div>
-            
-            <div className="animate-fade-in-right">
-              <Link href="/adventures" className="btn-primary inline-flex items-center">
-                Discover destinations
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </div>
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-              {[1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="bg-gray-200 rounded-xl h-64 animate-pulse" />
-              ))}
-            </div>
-          ) : saleTrips.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-              {saleTrips.map((trip, index) => (
-                <Link
-                  key={trip.id || trip.tripName}
-                  href={`/adventures/${trip.slug}`}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up block"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="relative h-48">
-                    <img
-                      src={trip.mapImage}
-                      alt={trip.tripName}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-3 right-3">
-                      <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                        SALE
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="p-4">
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
-                      <div className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1" />
-                        <span>{trip.duration}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        <span className="line-clamp-1">{trip.location}</span>
-                      </div>
-                    </div>
-                    
-                    <h4 className="font-semibold text-gray-900 mb-3 line-clamp-2">{trip.tripName}</h4>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm">
-                        <span className="text-gray-500 line-through">From USD {trip.originalPrice}</span>
-                        <div className="text-lg font-bold text-orange-600">USD {trip.salePrice}</div>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 text-gray-500">
-              <p>No sale adventures selected. Admin can select adventures from the admin panel.</p>
-            </div>
-          )}
-        </div>
-      </section>
+      {/* Discover tiers — full-bleed hero + card carousel (see DiscoverTiersHero) */}
+      <DiscoverTiersHero />
 
       {/* Why Travel With Maka‑Laskas */}
       <section className="section-padding bg-gray-50">

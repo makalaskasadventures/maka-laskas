@@ -232,7 +232,11 @@ async function main() {
   const adventures = await Promise.all([
     prisma.adventure.upsert({
       where: { slug: 'gorilla-trekking-cultural-immersion' },
-      update: {},
+      update: {
+        isFeatured: true,
+        homepageFeaturedOrder: 1,
+        tier: 'LUXURY_AND_IMPACT',
+      },
       create: {
         title: 'Gorilla Trekking & Cultural Immersion',
         slug: 'gorilla-trekking-cultural-immersion',
@@ -252,17 +256,23 @@ async function main() {
         isActive: true,
         isFeatured: true,
         isOnSale: true,
+        homepageFeaturedOrder: 1,
         rating: 4.9,
         reviewCount: 127,
         countryId: countries[0].id, // Uganda
         destinationId: destinations[0].id, // Bwindi
         categoryId: categories[0].id, // Signature Journeys
         themeId: themes[0].id, // Nature & Wildlife
+        tier: 'LUXURY_AND_IMPACT',
       },
     }),
     prisma.adventure.upsert({
       where: { slug: 'serengeti-migration-safari' },
-      update: {},
+      update: {
+        isFeatured: true,
+        homepageFeaturedOrder: 2,
+        tier: 'EMBARK_AND_DISCOVER',
+      },
       create: {
         title: 'Serengeti Migration Safari',
         slug: 'serengeti-migration-safari',
@@ -280,17 +290,23 @@ async function main() {
         price: 4200,
         isActive: true,
         isFeatured: true,
+        homepageFeaturedOrder: 2,
         rating: 4.8,
         reviewCount: 89,
         countryId: countries[1].id, // Tanzania
         destinationId: destinations[1].id, // Serengeti
         categoryId: categories[2].id, // Purposeful Safaris
         themeId: themes[0].id, // Nature & Wildlife
+        tier: 'EMBARK_AND_DISCOVER',
       },
     }),
     prisma.adventure.upsert({
       where: { slug: 'volcanoes-village-life' },
-      update: {},
+      update: {
+        isFeatured: true,
+        homepageFeaturedOrder: 3,
+        tier: 'EDUCATION',
+      },
       create: {
         title: 'Volcanoes & Village Life',
         slug: 'volcanoes-village-life',
@@ -307,15 +323,18 @@ async function main() {
         price: 2400,
         isActive: true,
         isFeatured: true,
+        homepageFeaturedOrder: 3,
         rating: 4.7,
         reviewCount: 156,
         countryId: countries[2].id, // Rwanda
         destinationId: destinations[2].id, // Volcanoes
         categoryId: categories[1].id, // Ubuntu Trails
         themeId: themes[1].id, // Community & Culture
+        tier: 'EDUCATION',
       },
     }),
   ])
+
 
   console.log('✅ Adventures created')
 
@@ -385,7 +404,7 @@ async function main() {
       data: {
         day: 3,
         title: 'Gorilla Trekking Day',
-        description: 'The highlight of your journey - tracking and spending time with mountain gorillas.',
+        description: 'The highlight of your ON CRnding time with mountain gorillas.',
         activities: ['Early morning briefing', 'Gorilla trekking', 'Cultural village visit'],
         meals: ['Breakfast', 'Lunch', 'Dinner'],
         accommodation: 'Bwindi Lodge',

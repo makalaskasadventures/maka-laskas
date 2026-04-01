@@ -92,7 +92,7 @@ export default function Header() {
     { name: 'Education', href: '/about' },
     { name: 'Map Zoo', href: '/adventures' },
     { name: 'Events', href: '/adventures' },
-    { name: 'Donate', href: '/join' },
+    { name: 'Donate', href: '/donate' },
     { name: 'Foundation', href: '/about' }
   ];
 

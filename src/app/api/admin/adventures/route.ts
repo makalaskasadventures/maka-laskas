@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { isAdventureTier } from '@/lib/adventure-tier';
 
 export async function GET(request: NextRequest) {
   try {
@@ -46,48 +47,61 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
 
+    // Unchecked create only: scalar FKs + tier. Omit highlights/itinerary unless non-empty — passing
+    // `undefined` for those keys pushes Prisma XOR toward AdventureCreateInput and `tier` then errors.
+    const createData: Record<string, unknown> = {
+      title: body.title,
+      slug: body.slug,
+      description: body.description,
+      shortDescription: body.shortDescription,
+      image: body.image,
+      gallery: body.gallery || [],
+      duration: parseInt(body.duration, 10),
+      groupSize: parseInt(body.groupSize, 10),
+      minAge: body.minAge ? parseInt(body.minAge, 10) : null,
+      difficulty: body.difficulty,
+      price: parseFloat(body.price),
+      originalPrice: body.originalPrice ? parseFloat(body.originalPrice) : null,
+      isActive: body.isActive ?? true,
+      isFeatured: body.isFeatured ?? false,
+      isOnSale: body.isOnSale ?? false,
+      countryId: body.countryId,
+      destinationId: body.destinationId || null,
+      categoryId: body.categoryId,
+      themeId: body.themeId || null,
+      tier: isAdventureTier(body.tier) ? body.tier : 'EMBARK_AND_DISCOVER',
+    };
+
+    if (body.highlights?.length > 0) {
+      createData.highlights = {
+        create: body.highlights.map((h: any) => ({
+          title: h.title,
+          description: h.description || null,
+          icon: h.icon || null,
+        })),
+      };
+    }
+
+    if (body.itinerary?.length > 0) {
+      createData.itinerary = {
+        create: body.itinerary.map((item: any) => ({
+          day: item.day,
+          title: item.title,
+          description: item.description || null,
+          activities: item.activities || [],
+          meals: item.meals || [],
+          accommodation: item.accommodation || null,
+        })),
+      };
+    }
+
     const adventure = await prisma.adventure.create({
-      data: {
-        title: body.title,
-        slug: body.slug,
-        description: body.description,
-        shortDescription: body.shortDescription,
-        image: body.image,
-        gallery: body.gallery || [],
-        duration: parseInt(body.duration),
-        groupSize: parseInt(body.groupSize),
-        minAge: body.minAge ? parseInt(body.minAge) : null,
-        difficulty: body.difficulty,
-        price: parseFloat(body.price),
-        originalPrice: body.originalPrice ? parseFloat(body.originalPrice) : null,
-        isActive: body.isActive ?? true,
-        isFeatured: body.isFeatured ?? false,
-        isOnSale: body.isOnSale ?? false,
-        countryId: body.countryId,
-        destinationId: body.destinationId || null,
-        categoryId: body.categoryId,
-        themeId: body.themeId || null,
-        highlights: body.highlights && body.highlights.length > 0 ? {
-          create: body.highlights.map((h: any) => ({
-            title: h.title,
-            description: h.description || null,
-            icon: h.icon || null,
-          }))
-        } : undefined,
-        itinerary: body.itinerary && body.itinerary.length > 0 ? {
-          create: body.itinerary.map((item: any) => ({
-            day: item.day,
-            title: item.title,
-            description: item.description || null,
-            activities: item.activities || [],
-            meals: item.meals || [],
-            accommodation: item.accommodation || null,
-          }))
-        } : undefined,
-      },
+      data: createData as any,
       include: {
         country: true,
+        destination: true,
         category: true,
+        theme: true,
         highlights: true,
         itinerary: {
           orderBy: {

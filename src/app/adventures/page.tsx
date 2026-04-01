@@ -1,28 +1,35 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MapPin, Clock, Users, Star, ArrowRight, Mountain, Heart, Globe, Leaf, Users as GroupIcon, Filter, Search } from 'lucide-react';
+import { MapPin, Clock, Users, Star, ArrowRight, Mountain, Heart, Globe, Leaf, Users as GroupIcon, Search } from 'lucide-react';
 import Link from 'next/link';
+import { ADVENTURE_TIER_OPTIONS, type AdventureTier } from '@/lib/adventure-tier';
+
+function adventureTierLabel(tier: string | undefined) {
+  if (!tier) return '';
+  return ADVENTURE_TIER_OPTIONS.find(o => o.value === tier)?.label ?? tier;
+}
 
 export default function AdventuresPage() {
   const [adventures, setAdventures] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTier, setSelectedTier] = useState<AdventureTier | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
   useEffect(() => {
     fetchAdventures();
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedTier]);
 
   const fetchAdventures = async () => {
     setLoading(true);
     try {
-      let url = '/api/adventures';
-      if (selectedCategory) {
-        url += `?category=${selectedCategory}`;
-      }
+      const params = new URLSearchParams();
+      if (selectedCategory) params.set('category', selectedCategory);
+      if (selectedTier) params.set('tier', selectedTier);
+      const url = params.toString() ? `/api/adventures?${params.toString()}` : '/api/adventures';
       
       const response = await fetch(url);
       if (response.ok) {
@@ -50,8 +57,8 @@ export default function AdventuresPage() {
   const paginatedAdventures = filteredAdventures.slice(startIndex, endIndex);
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to first page when search changes
-  }, [searchTerm]);
+    setCurrentPage(1); // Reset to first page when search or tier filter changes
+  }, [searchTerm, selectedTier, selectedCategory]);
 
   // Ways to travel (Ubuntu-inspired styles)
   const waysToTravel = [
@@ -261,7 +268,39 @@ export default function AdventuresPage() {
       {/* Search & Filter */}
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto space-y-4">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+                Filter by discover tier
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedTier(null)}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                    selectedTier === null
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  All tiers
+                </button>
+                {ADVENTURE_TIER_OPTIONS.map(opt => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setSelectedTier(opt.value)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                      selectedTier === opt.value
+                        ? 'bg-orange-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -320,10 +359,15 @@ export default function AdventuresPage() {
                           <Mountain className="w-12 h-12 text-gray-400" />
                         </div>
                       )}
-                      <div className="absolute top-4 left-4">
+                      <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                         <span className="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                           {adventure.category.name}
                         </span>
+                        {adventure.tier && (
+                          <span className="bg-emerald-700 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                            {adventureTierLabel(adventure.tier)}
+                          </span>
+                        )}
                       </div>
                       {adventure.isFeatured && (
                         <div className="absolute top-4 right-4">

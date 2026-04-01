@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, Image as ImageIcon, Save, X } from 'lucide-react';
+import { ADVENTURE_TIER_OPTIONS, type AdventureTier } from '@/lib/adventure-tier';
 
 interface AdventureFormProps {
   adventure?: any;
@@ -30,6 +31,7 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
     destinationId: '',
     categoryId: '',
     themeId: '',
+    tier: 'EMBARK_AND_DISCOVER' as AdventureTier,
   });
 
   const [countries, setCountries] = useState<any[]>([]);
@@ -64,6 +66,7 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
         destinationId: adventure.destinationId || '',
         categoryId: adventure.categoryId || '',
         themeId: adventure.themeId || '',
+        tier: (adventure.tier as AdventureTier) || 'EMBARK_AND_DISCOVER',
       });
       setHighlights(adventure.highlights || []);
       setItinerary(adventure.itinerary || []);
@@ -474,6 +477,27 @@ export default function AdventureForm({ adventure, onSubmit, onCancel }: Adventu
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Discover tier *
+            </label>
+            <select
+              required
+              value={formData.tier}
+              onChange={(e) => handleChange('tier', e.target.value as AdventureTier)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            >
+              {ADVENTURE_TIER_OPTIONS.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1 text-xs text-gray-500">
+              Used for marketing filters on the public adventures page (Education, Embark &amp; Discover, etc.).
+            </p>
           </div>
 
           <div>

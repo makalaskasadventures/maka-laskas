@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { isAdventureTier } from '@/lib/adventure-tier';
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,10 +9,15 @@ export async function GET(request: NextRequest) {
     const theme = searchParams.get('theme');
     const country = searchParams.get('country');
     const featured = searchParams.get('featured');
+    const tierParam = searchParams.get('tier');
 
     const where: any = {
       isActive: true, // Only show active adventures to public
     };
+
+    if (tierParam && isAdventureTier(tierParam)) {
+      where.tier = tierParam;
+    }
 
     if (category) {
       where.category = { slug: category };

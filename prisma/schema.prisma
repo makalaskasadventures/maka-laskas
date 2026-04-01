@@ -167,6 +167,7 @@ model Adventure {
   isOnSale          Boolean  @default(false)
   homepageFeaturedOrder Int? // 1-5 for "Only Maka-Laskas experiences" section (null if not featured)
   homepageSaleOrder     Int? // 1-5 for "East Africa Sale" section (null if not in sale section)
+  tier              AdventureTier @default(EMBARK_AND_DISCOVER)
   rating            Float    @default(0)
   reviewCount       Int      @default(0)
   countryId         String
@@ -194,6 +195,14 @@ enum Difficulty {
   MODERATE
   CHALLENGING
   EXTREME
+}
+
+/// Discover tier shown on marketing hero and public adventure filters
+enum AdventureTier {
+  EDUCATION
+  EMBARK_AND_DISCOVER
+  ENGAGE_AND_GROW
+  LUXURY_AND_IMPACT
 }
 
 model AdventureHighlight {
