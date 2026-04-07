@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn, getSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react'
 
@@ -12,7 +11,6 @@ export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -29,13 +27,27 @@ export default function SignInPage() {
       if (result?.error) {
         setError('Invalid email or password')
       } else {
-        // Get the session to check user role
-        const session = await getSession()
-        if (session?.user?.role === 'ADMIN') {
-          router.push('/admin')
-        } else {
-          router.push('/')
+        // Avoid getSession() right after signIn — cookie often is not visible yet, so the
+        // client thinks you are logged out and /admin bounces back to this page (worse on Vercel).
+        const rawCallback = new URLSearchParams(window.location.search).get('callbackUrl')
+        if (rawCallback) {
+          try {
+            const next = new URL(rawCallback, window.location.origin)
+            if (next.origin === window.location.origin) {
+              window.location.assign(next.pathname + next.search + next.hash)
+              return
+            }
+          } catch {
+            /* ignore */
+          }
         }
+
+        const sessionRes = await fetch('/api/auth/session', {
+          credentials: 'include',
+          cache: 'no-store',
+        })
+        const data = sessionRes.ok ? await sessionRes.json() : null
+        window.location.assign(data?.user?.role === 'ADMIN' ? '/admin' : '/')
       }
     } catch (error) {
       setError('An error occurred. Please try again.')
