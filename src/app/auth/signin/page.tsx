@@ -18,36 +18,32 @@ export default function SignInPage() {
     setError('')
 
     try {
+      const rawCallback = new URLSearchParams(window.location.search).get('callbackUrl')
+      let callbackUrl = '/'
+      if (rawCallback) {
+        try {
+          const next = new URL(rawCallback, window.location.origin)
+          if (next.origin === window.location.origin) {
+            callbackUrl = next.pathname + next.search + next.hash
+          }
+        } catch {
+          /* keep '/' */
+        }
+      }
+
       const result = await signIn('credentials', {
         email,
         password,
+        callbackUrl,
         redirect: false,
       })
 
       if (result?.error) {
         setError('Invalid email or password')
-      } else {
-        // Avoid getSession() right after signIn — cookie often is not visible yet, so the
-        // client thinks you are logged out and /admin bounces back to this page (worse on Vercel).
-        const rawCallback = new URLSearchParams(window.location.search).get('callbackUrl')
-        if (rawCallback) {
-          try {
-            const next = new URL(rawCallback, window.location.origin)
-            if (next.origin === window.location.origin) {
-              window.location.assign(next.pathname + next.search + next.hash)
-              return
-            }
-          } catch {
-            /* ignore */
-          }
-        }
-
-        const sessionRes = await fetch('/api/auth/session', {
-          credentials: 'include',
-          cache: 'no-store',
-        })
-        const data = sessionRes.ok ? await sessionRes.json() : null
-        window.location.assign(data?.user?.role === 'ADMIN' ? '/admin' : '/')
+      } else if (result?.ok) {
+        // Use NextAuth's validated redirect URL (same as redirect:true) so the session cookie
+        // from the credentials response is consistently followed by a full navigation.
+        window.location.assign(result.url ?? callbackUrl)
       }
     } catch (error) {
       setError('An error occurred. Please try again.')
