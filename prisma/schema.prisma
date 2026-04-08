@@ -313,13 +313,17 @@ model Testimonial {
   isVerified  Boolean  @default(false)
   isFeatured  Boolean  @default(false)
   isPublished Boolean  @default(false)
-  userId      String
-  adventureId String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  /// When set, these override / supplement linked User for public display (e.g. admin-entered customer quotes).
+  guestName     String?
+  guestLocation String?
+  guestImage    String?
+  userId        String?
+  adventureId   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // Relations
-  user      User       @relation(fields: [userId], references: [id])
+  user      User?      @relation(fields: [userId], references: [id])
   adventure Adventure? @relation(fields: [adventureId], references: [id])
 
   @@map("testimonials")

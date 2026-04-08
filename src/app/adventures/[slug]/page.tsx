@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { MapPin, Clock, Users, Star, Calendar, DollarSign, Check, Heart, Share2, ArrowRight, Mountain } from 'lucide-react';
 import Link from 'next/link';
+import {
+  testimonialDisplayInitial,
+  testimonialDisplayName,
+} from '@/lib/testimonial-display';
 
 export default function AdventureDetailPage() {
   const params = useParams();
@@ -245,11 +249,19 @@ export default function AdventureDetailPage() {
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
                             <span className="text-orange-600 font-semibold">
-                              {testimonial.user.name?.charAt(0) || 'U'}
+                              {testimonialDisplayInitial({
+                                guestName: testimonial.guestName,
+                                user: testimonial.user,
+                              })}
                             </span>
                           </div>
                           <div>
-                            <div className="font-semibold text-gray-900">{testimonial.user.name}</div>
+                            <div className="font-semibold text-gray-900">
+                              {testimonialDisplayName({
+                                guestName: testimonial.guestName,
+                                user: testimonial.user,
+                              })}
+                            </div>
                             <div className="flex items-center">
                               {Array.from({ length: 5 }).map((_, i) => (
                                 <Star

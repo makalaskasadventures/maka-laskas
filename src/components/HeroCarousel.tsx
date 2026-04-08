@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Play, MapPin } from 'lucide-react';
 
 export default function HeroCarousel() {
@@ -96,10 +97,13 @@ export default function HeroCarousel() {
     <section className="relative h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       {/* Background Image */}
       <div key={currentIndex} className="absolute inset-0">
-        <img
+        <Image
           src={currentDestination.image}
-          alt={currentDestination.name}
-          className="w-full h-full object-cover opacity-40 transition duration-1000 ease-out scale-105 animate-[kenburns_10s_ease-in-out_infinite]"
+          alt={`${currentDestination.name}, ${currentDestination.country} — ${currentDestination.category}`}
+          fill
+          priority={currentIndex === 0}
+          sizes="100vw"
+          className="object-cover opacity-40 transition duration-1000 ease-out scale-105 animate-[kenburns_10s_ease-in-out_infinite]"
         />
         <div className="absolute inset-0 bg-black/30" />
       </div>
@@ -137,11 +141,13 @@ export default function HeroCarousel() {
           <div className="relative animate-fade-in-right">
             {/* Main Active Card */}
             <div className="relative mb-8">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                <img
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl h-80">
+                <Image
                   src={currentDestination.image}
-                  alt={currentDestination.name}
-                  className="w-full h-80 object-cover transition duration-700 ease-out will-change-transform transform-gpu scale-100 hover:scale-105"
+                  alt={`${currentDestination.name} — ${currentDestination.region}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover transition duration-700 ease-out will-change-transform transform-gpu scale-100 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
@@ -180,10 +186,12 @@ export default function HeroCarousel() {
                     }`}
                     onClick={() => goToSlide(index)}
                   >
-                    <img
+                    <Image
                       src={destination.image}
-                      alt={destination.name}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                      alt={`${destination.name}, ${destination.country}`}
+                      fill
+                      sizes="192px"
+                      className="object-cover transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
